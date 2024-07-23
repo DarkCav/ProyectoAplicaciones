@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Eliminar Producto</title>
+    <title>Admin - Modificar Producto</title>
 
     <!-- Favicon -->
     <link href="../img/favicon.ico" rel="icon">
@@ -52,10 +52,18 @@
             display: none;
         }
 
-        .trash-icon {
+        .modify-btn {
             cursor: pointer;
-            color: red;
+            color: blue;
             font-size: 1.5rem;
+        }
+
+        .confirm-btn {
+            background-color: green;
+            color: white;
+            font-size: 1.5rem;
+            border: none;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -82,15 +90,18 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="section-header text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <h1 class="display-5 mb-3">Eliminar Producto</h1>
-                <p>Bienvenido, admin. Elimina productos de la tienda.</p>
+                <h1 class="display-5 mb-3">Modificar Producto</h1>
+                <p>Bienvenido, admin. Modifica los datos de los productos de la tienda.</p>
             </div>
             <table class="table table-striped wow fadeInUp" data-wow-delay="0.1s">
                 <thead>
                     <tr>
                         <th>ID del Producto</th>
                         <th>Nombre</th>
+                        <th>Descripción</th>
                         <th>Precio</th>
+                        <th>Cantidad Disponible</th>
+                        <th>Peso (lb)</th>
                         <th>Acción</th>
                     </tr>
                 </thead>
@@ -98,20 +109,23 @@
                     <?php
                     include("../config/conexion.php");
 
-                    $sql = "SELECT id_producto, nombre, precio FROM producto";
+                    $sql = "SELECT id_producto, nombre, descripcion, precio, cantidad_disponible, peso_lb FROM producto";
                     $result = mysqli_query($conn, $sql);
 
                     if (mysqli_num_rows($result) > 0) {
                         while($row = mysqli_fetch_assoc($result)) {
                             echo "<tr>";
                             echo "<td>" . $row["id_producto"] . "</td>";
-                            echo "<td>" . $row["nombre"] . "</td>";
-                            echo "<td>" . $row["precio"] . "</td>";
-                            echo "<td><i class='bi bi-trash trash-icon' onclick='deleteProduct(" . $row["id_producto"] . ")'></i></td>";
+                            echo "<td><input type='text' class='form-control' value='" . $row["nombre"] . "' id='nombre_" . $row["id_producto"] . "' disabled></td>";
+                            echo "<td><input type='text' class='form-control' value='" . $row["descripcion"] . "' id='descripcion_" . $row["id_producto"] . "' disabled></td>";
+                            echo "<td><input type='number' class='form-control' step='0.01' value='" . $row["precio"] . "' id='precio_" . $row["id_producto"] . "' disabled></td>";
+                            echo "<td><input type='number' class='form-control' value='" . $row["cantidad_disponible"] . "' id='cantidad_" . $row["id_producto"] . "' disabled></td>";
+                            echo "<td><input type='number' class='form-control' step='0.01' value='" . $row["peso_lb"] . "' id='peso_" . $row["id_producto"] . "' disabled></td>";
+                            echo "<td><button class='btn btn-primary modify-btn' onclick='enableEdit(" . $row["id_producto"] . ")' id='modify_" . $row["id_producto"] . "'>Modificar</button></td>";
                             echo "</tr>";
                         }
                     } else {
-                        echo "<tr><td colspan='4'>No hay productos disponibles</td></tr>";
+                        echo "<tr><td colspan='7'>No hay productos disponibles</td></tr>";
                     }
 
                     mysqli_close($conn);
@@ -142,22 +156,51 @@
     <script src="../js/main.js"></script>
 
     <script>
-        function deleteProduct(id) {
-            if (confirm("¿Estás seguro de que quieres eliminar este producto?")) {
-                $.ajax({
-                    url: '../model/admin_erase.php',
-                    type: 'POST',
-                    data: { id_producto: id },
-                    success: function(response) {
-                        if (response == "success") {
-                            alert("Producto eliminado exitosamente.");
-                            location.reload();
-                        } else {
-                            alert("Error al eliminar el producto.");
-                        }
+        function enableEdit(id) {
+            // Enable input fields for editing
+            document.getElementById('nombre_' + id).disabled = false;
+            document.getElementById('descripcion_' + id).disabled = false;
+            document.getElementById('precio_' + id).disabled = false;
+            document.getElementById('cantidad_' + id).disabled = false;
+            document.getElementById('peso_' + id).disabled = false;
+            
+            // Change button to confirm button
+            var modifyBtn = document.getElementById('modify_' + id);
+            modifyBtn.textContent = "Confirmar";
+            modifyBtn.classList.remove('btn-primary');
+            modifyBtn.classList.add('confirm-btn');
+            modifyBtn.onclick = function() {
+                updateProduct(id);
+            };
+        }
+
+        function updateProduct(id) {
+            var nombre = document.getElementById('nombre_' + id).value;
+            var descripcion = document.getElementById('descripcion_' + id).value;
+            var precio = document.getElementById('precio_' + id).value;
+            var cantidad = document.getElementById('cantidad_' + id).value;
+            var peso = document.getElementById('peso_' + id).value;
+
+            $.ajax({
+                url: '../model/admin_update.php',
+                type: 'POST',
+                data: {
+                    id_producto: id,
+                    nombre: nombre,
+                    descripcion: descripcion,
+                    precio: precio,
+                    cantidad: cantidad,
+                    peso: peso
+                },
+                success: function(response) {
+                    if (response == "success") {
+                        alert("Producto modificado exitosamente.");
+                        location.reload();
+                    } else {
+                        alert("Error al modificar el producto.");
                     }
-                });
-            }
+                }
+            });
         }
     </script>
 </body>

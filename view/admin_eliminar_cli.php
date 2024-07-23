@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Eliminar Producto</title>
+    <title>Admin - Eliminar Cliente</title>
 
     <!-- Favicon -->
     <link href="../img/favicon.ico" rel="icon">
@@ -82,15 +82,15 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="section-header text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <h1 class="display-5 mb-3">Eliminar Producto</h1>
-                <p>Bienvenido, admin. Elimina productos de la tienda.</p>
+                <h1 class="display-5 mb-3">Eliminar Cliente</h1>
+                <p>Bienvenido, admin. Elimina clientes del sistema.</p>
             </div>
             <table class="table table-striped wow fadeInUp" data-wow-delay="0.1s">
                 <thead>
                     <tr>
-                        <th>ID del Producto</th>
+                        <th>ID del Cliente</th>
                         <th>Nombre</th>
-                        <th>Precio</th>
+                        <th>Correo Electrónico</th>
                         <th>Acción</th>
                     </tr>
                 </thead>
@@ -98,20 +98,20 @@
                     <?php
                     include("../config/conexion.php");
 
-                    $sql = "SELECT id_producto, nombre, precio FROM producto";
+                    $sql = "SELECT id_cliente, nombre, correo_electronico FROM cliente";
                     $result = mysqli_query($conn, $sql);
 
                     if (mysqli_num_rows($result) > 0) {
                         while($row = mysqli_fetch_assoc($result)) {
                             echo "<tr>";
-                            echo "<td>" . $row["id_producto"] . "</td>";
+                            echo "<td>" . $row["id_cliente"] . "</td>";
                             echo "<td>" . $row["nombre"] . "</td>";
-                            echo "<td>" . $row["precio"] . "</td>";
-                            echo "<td><i class='bi bi-trash trash-icon' onclick='deleteProduct(" . $row["id_producto"] . ")'></i></td>";
+                            echo "<td>" . $row["correo_electronico"] . "</td>";
+                            echo "<td><i class='bi bi-trash trash-icon' onclick='deleteClient(" . $row["id_cliente"] . ")'></i></td>";
                             echo "</tr>";
                         }
                     } else {
-                        echo "<tr><td colspan='4'>No hay productos disponibles</td></tr>";
+                        echo "<tr><td colspan='4'>No hay clientes disponibles</td></tr>";
                     }
 
                     mysqli_close($conn);
@@ -142,18 +142,18 @@
     <script src="../js/main.js"></script>
 
     <script>
-        function deleteProduct(id) {
-            if (confirm("¿Estás seguro de que quieres eliminar este producto?")) {
+        function deleteClient(id) {
+            if (confirm("¿Estás seguro de que quieres eliminar este cliente?")) {
                 $.ajax({
-                    url: '../model/admin_erase.php',
+                    url: '../model/admin_delete_cli.php',
                     type: 'POST',
-                    data: { id_producto: id },
+                    data: { id_cliente: id },
                     success: function(response) {
                         if (response == "success") {
-                            alert("Producto eliminado exitosamente.");
+                            alert("Cliente eliminado exitosamente.");
                             location.reload();
                         } else {
-                            alert("Error al eliminar el producto.");
+                            alert("Error al eliminar el cliente.");
                         }
                     }
                 });
