@@ -28,7 +28,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $sql = "INSERT INTO producto (nombre, descripcion, precio, cantidad_disponible, peso_lb, imagen)
                     VALUES ('$nombre', '$descripcion', '$precio', '$cantidad', '$peso', '$imagen_contenido')";
 
-            
+            if (mysqli_query($conn, $sql)) {
+                echo "<script>
+                        alert('Producto subido exitosamente.');
+                        window.location.href = '../view/admin_subir.html';
+                      </script>";
+            } else {
+                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            }
         } else {
             echo "Error: Solo se permiten archivos PNG.";
         }
@@ -37,5 +44,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-$conec->close();
+mysqli_close($conn);
 ?>
