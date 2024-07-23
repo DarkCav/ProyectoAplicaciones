@@ -3,12 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login y Register</title>
+    <title>Loguin y Registro</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-
-
     <link rel="stylesheet" href="../css/registro.css">
+    <script>
+        function showError(message) {
+            alert(message);
+        }
+
+        function clearFields(fields) {
+            if (fields === 'password' || fields === 'both') {
+                document.querySelector('.formulario__login input[name="contrasena"]').value = '';
+            }
+            if (fields === 'both') {
+                document.querySelector('.formulario__login input[name="correo"]').value = '';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('.formulario__login');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(form);
+                
+                fetch('../model/loguearse.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = data.redirect;
+                    } else {
+                        showError(data.error);
+                        clearFields(data.clearFields);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showError('Ocurrió un error al procesar la solicitud.');
+                });
+            });
+        });
+    </script>
+
 </head>
 <body>
     <main>
@@ -29,11 +69,12 @@
             <!--Formulario de Login y registro-->
             <div class="contenedor__login-register" >
                 <!--Login-->
-                <form action="../model/loguearse.php" method="post" class="formulario__login">
+                <!--<form action="../model/loguearse.php" method="post" class="formulario__login">-->
+                <form class="formulario__login">
                     <h2>Iniciar Sesión</h2>
                     <input type="text" name="correo" placeholder="Correo Electronico">
                     <input type="password" name="contrasena" placeholder="Contraseña">
-                    <button>Entrar</button>
+                    <!--<button>Entrar</button>--><button type="submit">Entrar</button>
                 </form>
 
                 <!--Register-->
@@ -44,7 +85,7 @@
                     <input type="text" placeholder="Contraseña" name="contrasena" id="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$" required
                     title="La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, letras minúscula y al menos un número." >
                     <input type="text" placeholder="Dirección" name="direccion" required >
-                    <input type="text" placeholder="Teléfono" name="telefono" required  pattern="\+593 \d{9}">
+                    <input type="text" placeholder="Teléfono" name="telefono" required  pattern="\d{10}">
                     <select name="tipo" required>
                         <option value="">Seleccione el tipo de usuario</option>
                         <option value="Normal">Normal</option>

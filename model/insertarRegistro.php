@@ -31,7 +31,7 @@ try {
     // Si todo está bien, confirmar la transacción
     mysqli_commit($conn);
 
-    $redirect_page = ($tipo_usuario === "Administrador") ? "../admin_menu.html" : "../index.html";
+    $redirect_page = ($tipo_usuario === "Administrador") ? "../view/admin_menu.html" : "../index.html";
 
     echo '
         <script>
