@@ -1,37 +1,41 @@
 <?php
 include("../config/conexion.php");
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST['nombre'];
     $descripcion = $_POST['descripcion'];
     $precio = $_POST['precio'];
     $cantidad = $_POST['cantidad'];
     $peso = $_POST['peso'];
-    $imagen = $_FILES['imagen'];
 
-    // Validar que la imagen sea PNG
-    $imageFileType = strtolower(pathinfo($imagen['name'], PATHINFO_EXTENSION));
-    if ($imageFileType != 'png') {
-        echo "Solo se permiten archivos PNG.";
-        exit();
-    }
+    // Manejar la subida de la imagen
+    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
+        $imagen = $_FILES['imagen'];
+        $imagen_nombre = $imagen['name'];
+        $imagen_tipo = $imagen['type'];
+        $imagen_tmp = $imagen['tmp_name'];
+        $imagen_tamano = $imagen['size'];
 
-    // Leer la imagen y convertirla en binario
-    $imageData = file_get_contents($imagen['tmp_name']);
+        // Verificar el tipo de archivo
+        $extensiones_permitidas = ['png'];
+        $extension = pathinfo($imagen_nombre, PATHINFO_EXTENSION);
 
-    // Insertar producto en la base de datos
-    $sql = "INSERT INTO producto (nombre, descripcion, precio, cantidad_disponible, peso_lb, imagen) VALUES (?, ?, ?, ?, ?, ?)";
-    $stmt = mysqli_prepare($conec, $sql);
-    mysqli_stmt_bind_param($stmt, 'ssdiib', $nombre, $descripcion, $precio, $cantidad, $peso, $imageData);
+        if (in_array($extension, $extensiones_permitidas)) {
+            // Leer el contenido del archivo
+            $imagen_contenido = addslashes(file_get_contents($imagen_tmp));
 
-    if (mysqli_stmt_execute($stmt)) {
-        header("Location: ../View/admin_subir.html?success=1");
-        exit();
+            // Insertar el producto en la base de datos
+            $sql = "INSERT INTO producto (nombre, descripcion, precio, cantidad_disponible, peso_lb, imagen)
+                    VALUES ('$nombre', '$descripcion', '$precio', '$cantidad', '$peso', '$imagen_contenido')";
+
+            
+        } else {
+            echo "Error: Solo se permiten archivos PNG.";
+        }
     } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($conec);
+        echo "Error al subir la imagen.";
     }
-
-    mysqli_stmt_close($stmt);
-    mysqli_close($conec);
 }
+
+$conec->close();
 ?>
