@@ -1,35 +1,8 @@
 <?php
-/*include 'conexion_be.php';
-
-$nombre_completo = $_POST['nombre_completo'];
-$correo = $_POST['correo'];
-$usuario = $_POST['usuario'];
-$contrasena = $_POST['contrasena'];  
-
-$query = "INSERT INTO usuarios (nombre_completo, correo, usuario, contrasena) VALUES ('$nombre_completo', '$correo', '$usuario', '$contrasena')";
-$ejecutar = mysqli_query($conec, $query);
-
-if ($ejecutar) {
-    echo '
-        <script>
-            alert("Usuario almacenado exitosamente");
-            window.location = "../index.php";
-        </script>
-    ';
-} else {
-    echo '
-        <script>
-            alert("Intentelo de nuevo");
-            window.location = "../index.php";
-        </script>
-    ';
-}
-
-mysqli_close($conec);*/
 include '../config/conexion.php';
 
 // Iniciar transacción
-mysqli_begin_transaction($conec);
+mysqli_begin_transaction($conn);
 
 try {
     // Obtener datos del formulario
@@ -42,21 +15,21 @@ try {
 
     // Insertar en la tabla usuario
     $query_usuario = "INSERT INTO usuario (nombre, tipo, contraseña) VALUES (?, ?, ?)";
-    $stmt_usuario = mysqli_prepare($conec, $query_usuario);
+    $stmt_usuario = mysqli_prepare($conn, $query_usuario);
     mysqli_stmt_bind_param($stmt_usuario, "sss", $nombre, $tipo_usuario, $contrasena);
     mysqli_stmt_execute($stmt_usuario);
 
     // Obtener el id_usuario recién insertado
-    $id_usuario = mysqli_insert_id($conec);
+    $id_usuario = mysqli_insert_id($conn);
 
     // Insertar en la tabla cliente
     $query_cliente = "INSERT INTO cliente (nombre, direccion, telefono, correo_electronico, id_usuario) VALUES (?, ?, ?, ?, ?)";
-    $stmt_cliente = mysqli_prepare($conec, $query_cliente);
+    $stmt_cliente = mysqli_prepare($conn, $query_cliente);
     mysqli_stmt_bind_param($stmt_cliente, "ssssi", $nombre, $direccion, $telefono, $correo, $id_usuario);
     mysqli_stmt_execute($stmt_cliente);
 
     // Si todo está bien, confirmar la transacción
-    mysqli_commit($conec);
+    mysqli_commit($conn);
 
     echo '
         <script>
@@ -66,7 +39,7 @@ try {
     ';
 } catch (Exception $e) {
     // Si algo sale mal, revertir la transacción
-    mysqli_rollback($conec);
+    mysqli_rollback($conn);
     echo '
         <script>
             alert("Error al registrar el usuario: ' . $e->getMessage() . '");
@@ -75,6 +48,6 @@ try {
     ';
 }
 
-mysqli_close($conec);
+mysqli_close($conn);
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 // Procedimental
-$servername = "localhost";
+$servername = "localhost:3310";
 $username = "root";
 $password = "";
 $database = "carniceria";
@@ -22,7 +22,4 @@ if ($conn->connect_error) {
 }
 echo "Conexión exitosa";
 
-// Consultas y otras operaciones...
-
-$conn->close();
 ?>
