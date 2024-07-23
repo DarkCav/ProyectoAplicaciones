@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Subir Producto</title>
+
+    <!-- Favicon -->
+    <link href="../img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Lora:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="../lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="../css/style.css" rel="stylesheet">
+
+    <style>
+        .nav-link {
+            font-size: 1.5rem;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background-color: #f8f9fa;
+            cursor: pointer;
+        }
+
+        .nav-link::after {
+            content: attr(data-bs-original-title);
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            background-color: #000;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+            font-size: 1.2rem;
+        }
+
+        .nav-link:hover::after {
+            opacity: 1;
+        }
+
+        .footer-logo {
+            font-size: 3rem;
+        }
+
+        .footer-container {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .btn-lg-square {
+            display: none;
+        }
+
+        .btn-logout:hover {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
+        <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
+            <a href="#" class="navbar-brand ms-4 ms-lg-0">
+                <h1 class="fw-bold text-primary m-0">F<span class="text-secondary">oo</span>dy</h1>
+            </a>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto p-4 p-lg-0">
+                    <a href="#" class="nav-item nav-link btn-logout" data-bs-toggle="tooltip" data-bs-original-title="Salir de la sesión de administrador">
+                        <i class="bi bi-door-closed me-2"></i>Cerrar Sesión
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Admin Menu Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="section-header text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <h1 class="display-5 mb-3">Subir Producto</h1>
+                <p>Bienvenido, admin. Sube nuevos productos a la tienda.</p>
+            </div>
+            <form action="../model/admin_up.php" method="post" enctype="multipart/form-data" class="wow fadeInUp" data-wow-delay="0.1s">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre del Producto</label>
+                    <input type="text" name="nombre" class="form-control" id="nombre" required>
+                </div>
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    <textarea name="descripcion" class="form-control" id="descripcion" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="precio" class="form-label">Precio</label>
+                    <input type="number" step="0.01" name="precio" class="form-control" id="precio" required>
+                </div>
+                <div class="mb-3">
+                    <label for="cantidad" class="form-label">Cantidad Disponible</label>
+                    <input type="number" name="cantidad" class="form-control" id="cantidad" required>
+                </div>
+                <div class="mb-3">
+                    <label for="peso" class="form-label">Peso (lb)</label>
+                    <input type="number" step="0.01" name="peso" class="form-control" id="peso" required>
+                </div>
+                <div class="mb-3">
+                    <label for="imagen" class="form-label">Imagen del Producto (solo .png)</label>
+                    <input type="file" name="imagen" class="form-control" id="imagen" accept=".png" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 py-3 fs-4">Guardar Producto</button>
+            </form>
+        </div>
+    </div>
+    <!-- Admin Menu End -->
+
+    <!-- Modal Success -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Éxito</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Producto subido exitosamente.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark footer footer-container wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center">
+            <h1 class="fw-bold text-primary mb-4 footer-logo">F<span class="text-secondary">oo</span>dy</h1>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../lib/wow/wow.min.js"></script>
+    <script src="../lib/easing/easing.min.js"></script>
+    <script src="../lib/waypoints/waypoints.min.js"></script>
+    <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="../js/main.js"></script>
+
+    <!-- Tooltip Initialization -->
+
+</body>
+
+</html>
+
