@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Redirigir basado en el tipo de usuario
             if ($row['tipo'] === 'Administrador') {
-                header("Location: ../admin_menu.html");
+                header("Location: ../view/admin_menu.html");
             } else {
                 header("Location: ../index.html");
             }
