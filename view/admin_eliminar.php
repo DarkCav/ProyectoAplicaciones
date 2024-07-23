@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Subir Producto</title>
+    <title>Admin - Eliminar Producto</title>
 
     <!-- Favicon -->
     <link href="../img/favicon.ico" rel="icon">
@@ -39,27 +39,6 @@
             cursor: pointer;
         }
 
-        .nav-link::after {
-            content: attr(data-bs-original-title);
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            white-space: nowrap;
-            background-color: #000;
-            color: #fff;
-            padding: 5px;
-            border-radius: 5px;
-            opacity: 0;
-            transition: opacity 0.2s;
-            pointer-events: none;
-            font-size: 1.2rem;
-        }
-
-        .nav-link:hover::after {
-            opacity: 1;
-        }
-
         .footer-logo {
             font-size: 3rem;
         }
@@ -71,6 +50,12 @@
 
         .btn-lg-square {
             display: none;
+        }
+
+        .trash-icon {
+            cursor: pointer;
+            color: red;
+            font-size: 1.5rem;
         }
     </style>
 </head>
@@ -84,8 +69,8 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="../index.html" class="nav-item nav-link" data-bs-toggle="tooltip" data-bs-original-title="Salir de la sesión de administrador">
-                        <i class="bi bi-door-closed me-2"></i>Volver
+                    <a href="../view/admin_menu.html" class="nav-item nav-link">
+                        <i class="bi bi-arrow-left me-2"></i>Volver
                     </a>
                 </div>
             </div>
@@ -97,36 +82,42 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="section-header text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <h1 class="display-5 mb-3">Subir Producto</h1>
-                <p>Bienvenido, admin. Sube nuevos productos a la tienda.</p>
+                <h1 class="display-5 mb-3">Eliminar Producto</h1>
+                <p>Bienvenido, admin. Elimina productos de la tienda.</p>
             </div>
-            <form action="../model/admin_up.php" method="post" enctype="multipart/form-data" class="wow fadeInUp" data-wow-delay="0.1s">
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre del Producto</label>
-                    <input type="text" name="nombre" class="form-control" id="nombre" required>
-                </div>
-                <div class="mb-3">
-                    <label for="descripcion" class="form-label">Descripción</label>
-                    <textarea name="descripcion" class="form-control" id="descripcion" rows="3"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="precio" class="form-label">Precio</label>
-                    <input type="number" step="0.01" name="precio" class="form-control" id="precio" required>
-                </div>
-                <div class="mb-3">
-                    <label for="cantidad" class="form-label">Cantidad Disponible</label>
-                    <input type="number" name="cantidad" class="form-control" id="cantidad" required>
-                </div>
-                <div class="mb-3">
-                    <label for="peso" class="form-label">Peso (lb)</label>
-                    <input type="number" step="0.01" name="peso" class="form-control" id="peso" required>
-                </div>
-                <div class="mb-3">
-                    <label for="imagen" class="form-label">Imagen del Producto (solo .png)</label>
-                    <input type="file" name="imagen" class="form-control" id="imagen" accept=".png" required>
-                </div>
-                <button type="submit" class="btn btn-primary w-100 py-3 fs-4">Guardar Producto</button>
-            </form>
+            <table class="table table-striped wow fadeInUp" data-wow-delay="0.1s">
+                <thead>
+                    <tr>
+                        <th>ID del Producto</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    include("../config/conexion.php");
+
+                    $sql = "SELECT id_producto, nombre, precio FROM producto";
+                    $result = mysqli_query($conn, $sql);
+
+                    if (mysqli_num_rows($result) > 0) {
+                        while($row = mysqli_fetch_assoc($result)) {
+                            echo "<tr>";
+                            echo "<td>" . $row["id_producto"] . "</td>";
+                            echo "<td>" . $row["nombre"] . "</td>";
+                            echo "<td>" . $row["precio"] . "</td>";
+                            echo "<td><i class='bi bi-trash trash-icon' onclick='deleteProduct(" . $row["id_producto"] . ")'></i></td>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='4'>No hay productos disponibles</td></tr>";
+                    }
+
+                    mysqli_close($conn);
+                    ?>
+                </tbody>
+            </table>
         </div>
     </div>
     <!-- Admin Menu End -->
@@ -150,15 +141,24 @@
     <!-- Template Javascript -->
     <script src="../js/main.js"></script>
 
-    <!-- Tooltip Initialization -->
     <script>
-        $(function () {
-            $('[data-bs-toggle="tooltip"]').tooltip({
-                trigger: 'hover',
-                placement: 'top',
-                template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner fs-5"></div></div>'
-            })
-        });
+        function deleteProduct(id) {
+            if (confirm("¿Estás seguro de que quieres eliminar este producto?")) {
+                $.ajax({
+                    url: '../model/admin_erase.php',
+                    type: 'POST',
+                    data: { id_producto: id },
+                    success: function(response) {
+                        if (response == "success") {
+                            alert("Producto eliminado exitosamente.");
+                            location.reload();
+                        } else {
+                            alert("Error al eliminar el producto.");
+                        }
+                    }
+                });
+            }
+        }
     </script>
 </body>
 

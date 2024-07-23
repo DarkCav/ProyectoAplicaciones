@@ -1,6 +1,6 @@
 <?php
 // Procedimental
-$servername = "localhost:3310";
+$servername = "localhost";
 $username = "root";
 $password = "";
 $database = "carniceria";
