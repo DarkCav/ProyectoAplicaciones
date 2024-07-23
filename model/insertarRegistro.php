@@ -31,10 +31,12 @@ try {
     // Si todo está bien, confirmar la transacción
     mysqli_commit($conn);
 
+    $redirect_page = ($tipo_usuario === "Administrador") ? "../admin_menu.html" : "../index.html";
+
     echo '
         <script>
-            alert("Usuario registrado exitosamente");
-            window.location = "../index.html";
+            alert("Usuario registrado exitosamente como ' . $tipo_usuario . '");
+            window.location = "' . $redirect_page . '";
         </script>
     ';
 } catch (Exception $e) {

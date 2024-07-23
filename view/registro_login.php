@@ -29,10 +29,10 @@
             <!--Formulario de Login y registro-->
             <div class="contenedor__login-register" >
                 <!--Login-->
-                <form action="" class="formulario__login">
+                <form action="../model/loguearse.php" class="formulario__login">
                     <h2>Iniciar Sesión</h2>
-                    <input type="text" placeholder="Correo Electronico">
-                    <input type="password" placeholder="Contraseña">
+                    <input type="text" name="correo" placeholder="Correo Electronico">
+                    <input type="password" name="contrasena" placeholder="Contraseña">
                     <button>Entrar</button>
                 </form>
 
@@ -47,8 +47,8 @@
                     <input type="text" placeholder="Teléfono" name="telefono" required  pattern="\+593 \d{9}">
                     <select name="tipo" required>
                         <option value="">Seleccione el tipo de usuario</option>
-                        <option value="administrador">Normal</option>
-                        <option value="cliente">Administrador</option>
+                        <option value="Normal">Normal</option>
+                        <option value="Administrador">Administrador</option>
                     </select>
                     <button type="submit">Regístrarse</button>
                 </form>
