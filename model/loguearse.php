@@ -48,9 +48,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 mysqli_close($conn)*/
 
+header('Content-Type: text/html; charset=utf-8');
 include '../config/conexion.php';
 session_start();
-
+// Asegurarse de que la conexión use UTF-8
+mysqli_set_charset($conn, "utf8mb4");
 header('Content-Type: application/json');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
