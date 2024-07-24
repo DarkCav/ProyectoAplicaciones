@@ -9,45 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/registro.css">
     <script>
-        /*function showError(message) {
-            alert(message);
-        }
-
-        function clearFields(fields) {
-            if (fields === 'password' || fields === 'both') {
-                document.querySelector('.formulario__login input[name="contrasena"]').value = '';
-            }
-            if (fields === 'both') {
-                document.querySelector('.formulario__login input[name="correo"]').value = '';
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('.formulario__login');
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const formData = new FormData(form);
-                
-                fetch('../model/loguearse.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        window.location.href = data.redirect;
-                    } else {
-                        showError(data.error);
-                        clearFields(data.clearFields);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showError('Ocurrió un error al procesar la solicitud.');
-                });
-            });
-        });*/
         function showError(message) {
             alert(message);
         }
@@ -85,21 +46,6 @@
                     console.error('Error:', error);
                     showError('Ocurrió un error al procesar la solicitud.');
                 });
-            });
-
-            const registerForm = document.querySelector('.formulario__register');
-            registerForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const password = document.querySelector('input[name="contrasena"]').value;
-                const confirmPassword = document.querySelector('input[name="confirmar"]').value;
-
-                if (password !== confirmPassword) {
-                    showError('Las contraseñas no coinciden. Por favor, inténtalo de nuevo.');
-                    return;
-                }
-
-                registerForm.submit();
             });
         });
     </script>
