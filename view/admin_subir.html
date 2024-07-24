@@ -79,7 +79,7 @@
                 <h1 class="display-5 mb-3">Subir Producto</h1>
                 <p>Bienvenido, admin. Sube nuevos productos a la tienda.</p>
             </div>
-            <form action="../model/admin_up.php" method="post" enctype="multipart/form-data" class="wow fadeInUp" data-wow-delay="0.1s">
+            <form action="../model/admin_up.php" method="post" class="wow fadeInUp" data-wow-delay="0.1s">
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre del Producto</label>
                     <input type="text" name="nombre" class="form-control" id="nombre" required>
@@ -110,8 +110,8 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="imagen" class="form-label">Imagen del Producto (solo .png)</label>
-                    <input type="file" name="imagen" class="form-control" id="imagen" accept=".png" required>
+                    <label for="imagen_url" class="form-label">URL de la Imagen del Producto (solo .png)</label>
+                    <input type="url" name="imagen_url" class="form-control" id="imagen_url" pattern="https?://.+" required>
                 </div>
                 <button type="submit" class="btn btn-primary w-100 py-3 fs-4">Guardar Producto</button>
             </form>
