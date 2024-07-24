@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipos de Carne - San Pedro</title>
+
+    <!-- Favicon -->
+    <link href="../img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Lora:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="../lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="../css/style.css" rel="stylesheet">
+
+    <style>
+        .nav-link {
+            font-size: 1.5rem;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background-color: #f8f9fa;
+            cursor: pointer;
+        }
+
+        .nav-link::after {
+            content: attr(data-bs-original-title);
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            background-color: #000;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+            font-size: 1.2rem;
+        }
+
+        .nav-link:hover::after {
+            opacity: 1;
+        }
+
+        .footer-logo {
+            font-size: 3rem;
+        }
+
+        .footer-container {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .btn-lg-square {
+            display: none;
+        }
+
+        .modal-header {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .modal-header .btn-close {
+            color: white;
+            border: none;
+            background: none;
+            font-size: 1.5rem;
+        }
+
+        .modal-header .btn-close:hover {
+            color: #dc3545;
+        }
+
+        .modal-body {
+            font-size: 1.2rem;
+        }
+
+        .modal-footer .btn-primary {
+            background-color: #28a745;
+            border: none;
+        }
+
+        .modal-footer .btn-secondary {
+            background-color: #dc3545;
+            border: none;
+        }
+
+        .spinner {
+            display: none;
+            margin-left: 10px;
+        }
+
+        .loading .spinner {
+            display: inline-block;
+        }
+
+        .loading .btn-eliminar {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .table .acciones {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
+        <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
+            <a href="#" class="navbar-brand ms-4 ms-lg-0">
+                <h1 class="fw-bold text-primary m-0">San<span class="text-secondary">Pe</span>dro</h1>
+            </a>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto p-4 p-lg-0">
+                    <a href="../view/admin_menu.html" class="nav-item nav-link" data-bs-toggle="tooltip" data-bs-original-title="Volver al menú administrador">
+                        <i class="bi bi-arrow-left-circle me-2"></i>Volver
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Admin Menu Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="section-header text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <h1 class="display-5 mb-3">Tipos de Carne</h1>
+                <p>Bienvenido, admin. Gestiona los tipos de carne.</p>
+            </div>
+            <div class="card mb-5">
+                <div class="card-header">
+                    <h2>Agregar Tipo de Carne</h2>
+                </div>
+                <div class="card-body">
+                    <form id="formRegistrar" method="post">
+                        <div class="form-group">
+                            <label for="nombre" class="form-label">Nombre del Tipo de Carne:</label>
+                            <input type="text" id="nombre" name="nombre" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Registrar</button>
+                        <div class="spinner-border spinner" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Eliminar Tipo de Carne</h2>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tipoCarneTable">
+                            <!-- Aquí se llenarán los datos de los tipos de carne existentes -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Admin Menu End -->
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark footer footer-container wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center">
+            <h1 class="fw-bold text-primary mb-4 footer-logo">San<span class="text-secondary">Pe</span>dro</h1>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Modal de Éxito -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Registro Exitoso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Tipo de carne registrado exitosamente.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Error -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    El tipo de carne ya existe.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Error de Verificación -->
+    <div class="modal fade" id="verifyErrorModal" tabindex="-1" aria-labelledby="verifyErrorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="verifyErrorModalLabel">Error</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Error al verificar el producto.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Confirmar Ingreso -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Confirmar Ingreso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    El producto ingresado no es un tipo de carne. ¿Desea ingresarlo de todas formas?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="confirmButton">Sí, ingresar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Confirmar Eliminación -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas eliminar este tipo de carne?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="confirmDeleteButton">Sí, eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../lib/wow/wow.min.js"></script>
+    <script src="../lib/easing/easing.min.js"></script>
+    <script src="../lib/waypoints/waypoints.min.js"></script>
+    <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="../js/main.js"></script>
+
+    <!-- Script para manejar el envío del formulario mediante Ajax y verificar el tipo de carne -->
+    <script>
+        $(document).ready(function () {
+            var formData;
+            var idTipoCarneToDelete; // Variable para almacenar el ID del tipo de carne a eliminar
+
+            $('#formRegistrar').on('submit', function (event) {
+                event.preventDefault(); // Evita que el formulario se envíe de la manera tradicional
+                formData = $(this).serialize();
+                var productName = $('#nombre').val();
+
+                // Verificar si el producto es un tipo de carne mediante la API de OpenFoodFacts
+                $.ajax({
+                    url: 'https://world.openfoodfacts.org/cgi/search.pl',
+                    type: 'GET',
+                    data: {
+                        search_terms: productName,
+                        json: true
+                    },
+                    beforeSend: function () {
+                        $('#formRegistrar').addClass('loading');
+                    },
+                    success: function (apiResponse) {
+                        var isMeat = false;
+                        if (apiResponse && apiResponse.products) {
+                            apiResponse.products.forEach(function (product) {
+                                if (product.categories && product.categories.includes("Meats")) {
+                                    isMeat = true;
+                                }
+                            });
+                        }
+                        $('#formRegistrar').removeClass('loading');
+                        if (isMeat) {
+                            // Si es un tipo de carne, proceder con el envío del formulario
+                            enviarFormulario(formData);
+                        } else {
+                            var confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+                            confirmModal.show();
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $('#formRegistrar').removeClass('loading');
+                        console.log('Error:', textStatus, errorThrown);
+                        var verifyErrorModal = new bootstrap.Modal(document.getElementById('verifyErrorModal'));
+                        verifyErrorModal.show();
+                    }
+                });
+            });
+
+            $('#confirmButton').on('click', function () {
+                var confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+                confirmModal.hide();
+                enviarFormulario(formData);
+            });
+
+            function enviarFormulario(formData) {
+                $.ajax({
+                    url: '../Model/admin_tproduc.php',
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        if (response === 'success') {
+                            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                            successModal.show();
+                        } else if (response === 'exists') {
+                            var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                            errorModal.show();
+                        }
+                        cargarTiposCarne();
+                    },
+                    error: function () {
+                        var verifyErrorModal = new bootstrap.Modal(document.getElementById('verifyErrorModal'));
+                        verifyErrorModal.show();
+                    }
+                });
+            }
+
+            function cargarTiposCarne() {
+                $.ajax({
+                    url: '../Model/get_tipos_carne.php',
+                    type: 'GET',
+                    success: function (response) {
+                        $('#tipoCarneTable').html(response);
+                    }
+                });
+            }
+
+            // Mostrar el modal de confirmación de eliminación
+            $(document).on('click', '.btn-eliminar', function () {
+                idTipoCarneToDelete = $(this).data('id');
+                var confirmDeleteModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+                confirmDeleteModal.show();
+            });
+
+            // Manejar la confirmación de eliminación
+            $('#confirmDeleteButton').on('click', function () {
+                $.ajax({
+                    url: '../Model/eliminar_tipo_carne.php',
+                    type: 'POST',
+                    data: { id: idTipoCarneToDelete },
+                    success: function (response) {
+                        var confirmDeleteModal = bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal'));
+                        confirmDeleteModal.hide();
+                        if (response === 'success') {
+                            cargarTiposCarne();
+                        } else {
+                            alert('Error al eliminar el tipo de carne.');
+                        }
+                    }
+                });
+            });
+
+            cargarTiposCarne();
+        });
+    </script>
+</body>
+
+</html>
