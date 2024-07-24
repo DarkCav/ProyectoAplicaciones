@@ -109,7 +109,7 @@
                     <?php
                     include("../config/conexion.php");
 
-                    $sql = "SELECT id_producto, nombre, descripcion, precio, cantidad_disponible, peso_lb FROM producto";
+                    $sql = "SELECT id_producto, nombre, descripcion, precio, stock, peso_lb FROM producto";
                     $result = mysqli_query($conn, $sql);
 
                     if (mysqli_num_rows($result) > 0) {
@@ -119,7 +119,7 @@
                             echo "<td><input type='text' class='form-control' value='" . $row["nombre"] . "' id='nombre_" . $row["id_producto"] . "' disabled></td>";
                             echo "<td><input type='text' class='form-control' value='" . $row["descripcion"] . "' id='descripcion_" . $row["id_producto"] . "' disabled></td>";
                             echo "<td><input type='number' class='form-control' step='0.01' value='" . $row["precio"] . "' id='precio_" . $row["id_producto"] . "' disabled></td>";
-                            echo "<td><input type='number' class='form-control' value='" . $row["cantidad_disponible"] . "' id='cantidad_" . $row["id_producto"] . "' disabled></td>";
+                            echo "<td><input type='number' class='form-control' value='" . $row["stock"] . "' id='cantidad_" . $row["id_producto"] . "' disabled></td>";
                             echo "<td><input type='number' class='form-control' step='0.01' value='" . $row["peso_lb"] . "' id='peso_" . $row["id_producto"] . "' disabled></td>";
                             echo "<td><button class='btn btn-primary modify-btn' onclick='enableEdit(" . $row["id_producto"] . ")' id='modify_" . $row["id_producto"] . "'>Modificar</button></td>";
                             echo "</tr>";

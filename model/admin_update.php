@@ -10,14 +10,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $peso = $_POST['peso'];
 
     // Actualizar el producto en la base de datos
-    $sql = "UPDATE producto SET nombre = '$nombre', descripcion = '$descripcion', precio = '$precio', cantidad_disponible = '$cantidad', peso_lb = '$peso' WHERE id_producto = $id_producto";
+    $sql = "UPDATE producto SET nombre='$nombre', descripcion='$descripcion', precio='$precio', stock='$cantidad', peso_lb='$peso' WHERE id_producto='$id_producto'";
 
     if (mysqli_query($conn, $sql)) {
         echo "success";
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
-}
 
-mysqli_close($conn);
+    mysqli_close($conn);
+}
 ?>
