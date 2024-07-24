@@ -17,7 +17,7 @@ try {
     $tipo_usuario = $_POST['tipo'];
 
     // Insertar en la tabla usuario
-    $query_usuario = "INSERT INTO usuario (nombre, tipo, contraseña) VALUES (?, ?, ?)";
+    $query_usuario = "INSERT INTO rol_usuario (nombre, tipo, contraseña) VALUES (?, ?, ?)";
     $stmt_usuario = mysqli_prepare($conn, $query_usuario);
     mysqli_stmt_bind_param($stmt_usuario, "sss", $nombre, $tipo_usuario, $contrasena);
     mysqli_stmt_execute($stmt_usuario);

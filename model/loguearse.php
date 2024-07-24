@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Preparar la consulta
     $query = "SELECT u.id_usuario, u.nombre, u.contraseña, u.tipo 
-              FROM usuario u 
+              FROM rol_usuario u 
               INNER JOIN cliente c ON u.id_usuario = c.id_usuario 
               WHERE c.correo_electronico = ?";
     
