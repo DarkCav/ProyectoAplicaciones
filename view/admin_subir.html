@@ -39,27 +39,6 @@
             cursor: pointer;
         }
 
-        .nav-link::after {
-            content: attr(data-bs-original-title);
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            white-space: nowrap;
-            background-color: #000;
-            color: #fff;
-            padding: 5px;
-            border-radius: 5px;
-            opacity: 0;
-            transition: opacity 0.2s;
-            pointer-events: none;
-            font-size: 1.2rem;
-        }
-
-        .nav-link:hover::after {
-            opacity: 1;
-        }
-
         .footer-logo {
             font-size: 3rem;
         }
@@ -120,6 +99,15 @@
                 <div class="mb-3">
                     <label for="peso" class="form-label">Peso (lb)</label>
                     <input type="number" step="0.01" name="peso" class="form-control" id="peso" required>
+                </div>
+                <div class="mb-3">
+                    <label for="id_tipo_producto" class="form-label">Tipo de Producto</label>
+                    <select name="id_tipo_producto" id="id_tipo_producto" class="form-control" required>
+                        <option value="6">Res</option>
+                        <option value="7">Pollo</option>
+                        <option value="8">Cerdo</option>
+                        <option value="9">Embutidos</option>
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label for="imagen" class="form-label">Imagen del Producto (solo .png)</label>
