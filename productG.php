@@ -1,3 +1,23 @@
+<?php
+
+session_start();
+
+if (!isset($_SESSION['user_name'])) { //VALIDAR SESSION
+    $_SESSION['msg'] = "NO SESSION";
+    echo "<script>console.log('Debug Objects: " . $_SESSION['msg']  . "' );</script>";
+    header('location: Controller/Controlador.php?opcion=1');
+}
+
+if (isset($_GET['logout'])) { //CERRAR SESSION
+    echo "<script>console.log('Destroy session');</script>";
+    //sleep(3);
+    session_destroy();
+    unset($_SESSION['user_name']);
+    header("location: index.html");
+}
+
+echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</script>";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -64,24 +84,21 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="index.html" class="nav-item nav-link">Inicio</a>
-                    <a href="about.html" class="nav-item nav-link">Sobre nosotros</a>
-                    <a href="product.html" class="nav-item nav-link active">Productos</a>
-                    <!--<div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Páginas</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="blog.html" class="dropdown-item">Cuadro de blog</a>
-                            <a href="feature.html" class="dropdown-item">Nuestras características</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                            <a href="404.html" class="dropdown-item">404 Page</a>
-                        </div>
-                    </div>-->
-                    <a href="contact.html" class="nav-item nav-link">Contáctanos</a>
+                    <a href="indexU.php" class="nav-item nav-link">Inicio</a>
+                    <a href="about.php" class="nav-item nav-link">Sobre nosotros</a>
+                    <a href="productG.php" class="nav-item nav-link active">Productos</a>
+                    <a href="contact.php" class="nav-item nav-link">Contáctanos</a>
                 </div>
                 <div class="d-none d-lg-flex ms-2">
-                    <a class="btn-sm-square bg-white rounded-circle ms-3" href="Controller/Controlador.php?opcion=1">
-                        <small class="fa fa-user text-body"></small>
-                    </a>
+                    <div class="nav-item dropdown">
+                        <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
+                            <small class="fa fa-user text-body"></small><?php echo $_SESSION['user_name']; ?>
+                        </a>
+                        <div class="dropdown-menu m-0">
+                            <a href="Controller/Controlador.php?opcion=2" class="dropdown-item">Mis datos</a>
+                            <a href="indexU.php?logout='1'" class="dropdown-item">Cerrar Sesión</a>
+                        </div>
+                    </div>
                     <!-- Botón del carrito -->
                     <a class="btn-sm-square bg-white rounded-circle ms-3" id="cart-button" href="#">
                         <small class="fa fa-shopping-bag text-body"></small>

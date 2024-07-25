@@ -1,9 +1,29 @@
+<?php
+
+session_start();
+if (!isset($_SESSION['user_name'])) { //VALIDAR SESSION
+    $_SESSION['msg'] = "NO SESSION";
+    echo "<script>console.log('Debug Objects: " . $_SESSION['msg']  . "' );</script>";
+    header('location: Controller/Controlador.php?opcion=1');
+}
+
+if (isset($_GET['logout'])) { //CERRAR SESSION
+    echo "<script>console.log('Destroy session');</script>";
+    //sleep(3);
+    session_destroy();
+    unset($_SESSION['user_name']);
+    header("location: Controller/Controlador.php?opcion=1");
+}
+
+echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</script>";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Cárnicos - Sobre nosotros</title>
+    <title>San Pedro - Contacto</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -63,24 +83,21 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="index.html" class="nav-item nav-link">Inicio</a>
-                    <a href="about.html" class="nav-item nav-link active">Sobre nosotros</a>
-                    <a href="product.html" class="nav-item nav-link">Productos</a>
-                    <!--<div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Páginas</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="blog.html" class="dropdown-item">Cuadro de blog</a>
-                            <a href="feature.html" class="dropdown-item">Nuestras características</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                            <a href="404.html" class="dropdown-item">404 Page</a>
-                        </div>
-                    </div>-->
-                    <a href="contact.html" class="nav-item nav-link">Contáctanos</a>
+                    <a href="indexU.php" class="nav-item nav-link">Inicio</a>
+                    <a href="about.php" class="nav-item nav-link ">Sobre nosotros</a>
+                    <a href="productG.php" class="nav-item nav-link">Productos</a>
+                    <a href="contact.php" class="nav-item nav-link active">Contáctanos</a>
                 </div>
                 <div class="d-none d-lg-flex ms-2">
-                    <a class="btn-sm-square bg-white rounded-circle ms-3" href="Controller/Controlador.php?opcion=1">
-                        <small class="fa fa-user text-body"></small>
-                    </a>
+                    <div class="nav-item dropdown">
+                        <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
+                            <small class="fa fa-user text-body"></small><?php echo $_SESSION['user_name']; ?>
+                        </a>
+                        <div class="dropdown-menu m-0">
+                            <a href="Controller/Controlador.php?opcion=2" class="dropdown-item">Mis datos</a>
+                            <a href="indexU.php?logout='1'" class="dropdown-item">Cerrar Sesión</a>
+                        </div>
+                    </div>
                     <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
                         <small class="fa fa-shopping-bag text-body"></small>
                     </a>
@@ -92,99 +109,93 @@
 
 
     <!-- Page Header Start -->
-    <div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container-fluid page-header wow fadeIn" data-wow-delay="0.1s">
         <div class="container">
-            <h1 class="display-3 mb-3 animated slideInDown">Sobre nosotros</h1>
+            <h1 class="display-3 mb-3 animated slideInDown">Contáctanos</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a class="text-body" href="index.html">Inicio</a></li>
                     <!--<li class="breadcrumb-item"><a class="text-body" href="#">Páginas</a></li>-->
-                    <li class="breadcrumb-item text-dark active" aria-current="page">Sobre nosotros</li>
+                    <li class="breadcrumb-item text-dark active" aria-current="page">Contáctanos</li>
                 </ol>
             </nav>
         </div>
     </div>
     <!-- Page Header End -->
 
-
-    <!-- About Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="row g-5 align-items-center">
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="about-img position-relative overflow-hidden p-5 pe-0">
-                        <img class="img-fluid w-100" src="img/about.jpg">
-                    </div>
-                </div>
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                    <h1 class="display-5 mb-4">Las mejores carnes y con alta calidad</h1>
-                    <p class="mb-4">El Local San Pedro es una carnicería de confianza que ofrece una amplia variedad de cortes de carne de alta calidad. Ubicado en el corazón del vecindario, el local se especializa en carnes frescas y productos selectos, atendiendo a sus clientes con un servicio amable y personalizado. Con un enfoque en la frescura y la calidad, el Local Pedro se ha convertido en un favorito entre los amantes de la buena carne, proporcionando opciones ideales para cualquier ocasión culinaria.</p>
-                    <p><i class="fa fa-check text-primary me-3"></i>Ofrece: Carne de res, Pollo, Carne de chando y embutidos</p>
-                    <p><i class="fa fa-check text-primary me-3"></i>Excelente atención al cliente</p>
-                    <p><i class="fa fa-check text-primary me-3"></i>Siempre con una buena higiene y seguridad alimentaria</p>
-                    <a class="btn btn-primary rounded-pill py-3 px-5 mt-3" href="">Leer más</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- About End -->
-
-
-    <!-- Firm Visit Start -->
-    <div class="container-fluid bg-primary bg-icon mt-5 py-6">
-        <div class="container">
-            <div class="row g-5 align-items-center">
-                <div class="col-md-7 wow fadeIn" data-wow-delay="0.1s">
-                    <h1 class="display-5 text-white mb-3">Visítanos</h1>
-                    <p class="text-white mb-0">Te invitamos a descubrir el Local San Pedro, tu destino de confianza para cortes de carne de la más alta calidad. Ofrecemos una experiencia de compra única con una amplia selección de productos frescos y un servicio al cliente excepcional. 
-                        Ven a conocer nuestro equipo amable y experto, quien estará encantado de ayudarte a elegir los mejores cortes para cada ocasión. Disfruta de un ambiente acogedor y aprovecha nuestras ofertas especiales mientras exploras nuestra variedad de carnes y productos gourmet. 
-                        ¡Te esperamos con los brazos abiertos!</p>
-                </div>
-                <div class="col-md-5 text-md-end wow fadeIn" data-wow-delay="0.5s">
-                    <a class="btn btn-lg btn-secondary rounded-pill py-3 px-5" href="">¡Visítanos ya!</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Firm Visit End -->
-
-
-    <!-- Feature Start -->
-    <div class="container-fluid bg-light bg-icon py-6">
+    <!-- Contact Start -->
+    <div class="container-xxl py-6">
         <div class="container">
             <div class="section-header text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <h1 class="display-5 mb-3">Nuestras Características</h1>
-                <p>Conoce las características que más nos definen:</p>
+                <h1 class="display-5 mb-3">Establecer Contacto</h1>
+                <p>Estamos aquí para ayudarte con cualquier consulta o solicitud que puedas tener</p>
             </div>
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="bg-white text-center h-100 p-4 p-xl-5">
-                        <img class="img-fluid mb-4" src="img/iconcarneres.png" alt="" style=" width: 80px; height:80px ;">
-                        <h4 class="mb-3">Frescura inigualable</h4>
-                        <p class="mb-4">Se garantiza que todos sus cortes de carne se mantengan frescos gracias a prácticas rigurosas de almacenamiento y manejo. Esto asegura que los clientes disfruten de productos que conservan su sabor y calidad.</p>
-                        <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="">Leer más</a>
+            <div class="row g-5 justify-content-center">
+                <div class="col-lg-5 col-md-12 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="bg-primary text-white d-flex flex-column justify-content-center h-100 p-5">
+                        <h5 class="text-white">Llámanos</h5>
+                        <p class="mb-5"><i class="fa fa-phone-alt me-3"></i>(03) 239-3548</p>
+                        <h5 class="text-white">Nuestro correo</h5>
+                        <p class="mb-5"><i class="fa fa-envelope me-3"></i>carnisanpedro@yahoo.es</p>
+                        <h5 class="text-white">Dirección oficial</h5>
+                        <p class="mb-5"><i class="fa fa-map-marker-alt me-3"></i>Carabobo 14-31 y Boyaca, Riobamba, Ecuador, 060150</p>
+                        <h5 class="text-white">Síguenos</h5>
+                        <div class="d-flex pt-2">
+                            <a class="btn btn-square btn-outline-light rounded-circle me-1" href="https://www.instagram.com/carnicossanpedro/?hl=es"><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-square btn-outline-light rounded-circle me-1" href="https://www.facebook.com/CarnicosSanPedro/photos?locale=es_LA"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square btn-outline-light rounded-circle me-1" href="https://www.youtube.com/watch?v=K-9nDaonxDs"><i class="fab fa-youtube"></i></a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="bg-white text-center h-100 p-4 p-xl-5">
-                        <img class="img-fluid mb-4" src="img/iconservivcio.png" alt="" style=" width: 80px; height:80px ;">
-                        <h4 class="mb-3">Asesoramiento experto</h4>
-                        <p class="mb-4">El personal está altamente capacitado para ofrecer recomendaciones y asesoramiento sobre los mejores cortes para cada tipo de preparación. Esto ayuda a los clientes a tomar decisiones informadas y a lograr resultados culinarios excepcionales.</p>
-                        <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="">Leer más</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="bg-white text-center h-100 p-4 p-xl-5">
-                        <img class="img-fluid mb-4" src="img/iconvarios.png" alt="" style=" width: 200px; height:80px ;">
-                        <h4 class="mb-3">Variedad de productos</h4>
-                        <p class="mb-4">Además de una amplia selección de cortes de carne, el Local ofrece productos adicionales como embutidos, carnes marinadas y preparados especiales. Esta variedad permite a los clientes encontrar todo lo que necesitan para sus comidas en un solo lugar.</p>
-                        <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="">Leer más</a>
-                    </div>
+                <div class="col-lg-7 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
+                    <p class="mb-4">Ya sea que necesites información sobre nuestros productos, realizar un pedido especial o tengas alguna pregunta,
+                         no dudes en ponerte en contacto con nosotros. Puedes visitarnos en nuestra tienda, llamarnos por teléfono o enviarnos un 
+                         correo electrónico. ¡Esperamos saber de ti pronto!
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                    <label for="name">Su nombre</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                    <label for="email">Su correo electrónico</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                    <label for="subject">Asunto</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 200px"></textarea>
+                                    <label for="message">Mensaje</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Enviar mensaje</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Feature End -->
+    <!-- Contact End -->
+
+
+    <!-- Google Map Start -->
+    <div class="container-xxl px-0 wow fadeIn" data-wow-delay="0.1s" style="margin-bottom: -6px;">
+        <iframe class="w-100" style="height: 350px;"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1110.433913532729!2d-78.64784730575819!3d-1.67430075445513!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d3a90130ad368b%3A0x277178f5797e6e70!2sC%C3%A1rnicos%20San%20Pedro!5e0!3m2!1ses!2sec!4v1721712302673!5m2!1ses!2sec" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+    <!-- Google Map End -->
 
 
     <!-- Footer Start -->

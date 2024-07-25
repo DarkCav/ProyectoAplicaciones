@@ -1,0 +1,81 @@
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa; /* Light background */
+    color: #333333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h1 {
+    color: #28a745; /* Verde */
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+p {
+    font-size: 18px;
+    margin: 10px 0;
+    line-height: 1.6;
+    color: #555555;
+}
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 30px;
+    background-color: #ff6347; /* Tomate */
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+a:hover {
+    background-color: #e55342; /* Tomate oscuro */
+    transform: scale(1.05);
+}
+
+/* Container for user data */
+.container {
+    max-width: 700px;
+    background-color: #ffffff;
+    padding: 40px 60px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.container p {
+    font-size: 18px;
+    margin: 15px 0;
+}
+
+.container p strong {
+    color: #28a745; /* Verde */
+}
+
+/* Add some animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container {
+    animation: fadeIn 1s ease-in-out;
+}

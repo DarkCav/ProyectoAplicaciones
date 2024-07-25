@@ -86,9 +86,9 @@
                     <input type="email" placeholder="Correo Electronico" name="correo" required>
                     <input type="text" placeholder="Dirección" name="direccion" required >
                     <input type="text" placeholder="Teléfono" name="telefono" required  pattern="\d{10}">
-                    <input type="text" placeholder="Contraseña" name="contrasena" id="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$" required
+                    <input type="password" placeholder="Contraseña" name="contrasena" id="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$" required
                     title="La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, letras minúscula y al menos un número." >
-                    <input type="text" placeholder="Confirmar contraseña" name="confirmar" id=" confirm_password">
+                    <input type="password" placeholder="Confirmar contraseña" name="confirmar" id=" confirm_password">
                     <select name="tipo" required>
                         <option value="">Seleccione el tipo de usuario</option>
                         <option value="Normal">Normal</option>
