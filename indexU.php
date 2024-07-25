@@ -1,3 +1,26 @@
+<?php
+ 
+// Starting the session, to use and
+// store data in session variable
+session_start();
+
+if (!isset($_SESSION['user_name'])) {
+    $_SESSION['msg'] = "You have to log in first";
+    echo "<script>console.log('Debug Objects: " . $_SESSION['msg']  . "' );</script>";
+    header('location: Controller/Controlador.php?opcion=1');
+}
+
+if (isset($_GET['logout'])) {
+    echo "<script>console.log('Destroy session');</script>";
+    session_destroy();
+    unset($_SESSION['user_name']);
+    header("location: index.html");
+}
+
+echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</script>";
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,19 +86,19 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="index.html" class="nav-item nav-link active">Inicio</a>
-                    <a href="about.html" class="nav-item nav-link">Sobre nosotros</a>
-                    <a href="product.html" class="nav-item nav-link">Productos</a>
-                    <a href="contact.html" class="nav-item nav-link">Contáctanos</a>
+                    <a href="indexU.php" class="nav-item nav-link active">Inicio</a>
+                    <a href="about.php" class="nav-item nav-link">Sobre nosotros</a>
+                    <a href="productG.php" class="nav-item nav-link">Productos</a>
+                    <a href="contact.php" class="nav-item nav-link">Contáctanos</a>
                 </div>
                 <div class="d-none d-lg-flex ms-2">               
                     <div class="nav-item dropdown">
                         <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
-                            <small class="fa fa-user text-body"></small>U
+                            <small class="fa fa-user text-body"></small><?php echo $_SESSION['user_name']; ?>
                         </a>
                         <div class="dropdown-menu m-0">
-                            <a href="/view/miCuenta.php" class="dropdown-item">Mis datos</a>
-                            <a href="index.html" class="dropdown-item">Cerrar Sesión</a>
+                            <a href="Controller/Controlador.php?opcion=2" class="dropdown-item">Mis datos</a>
+                            <a href="indexU.php?logout='1'" class="dropdown-item">Cerrar Sesión</a>
                         </div>
                     </div>
                     <!--<a class="btn-sm-square bg-white rounded-circle ms-3" href="Controller/Controlador.php?opcion=1">

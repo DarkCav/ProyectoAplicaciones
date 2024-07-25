@@ -67,7 +67,8 @@ try {
         </script>
     ';
 }
-mysqli_close($conn);*/
+mysqli_close($conn); SIN LA CONFIRMACION*/
+
 header('Content-Type: text/html; charset=utf-8');
 include '../config/conexion.php';
 
