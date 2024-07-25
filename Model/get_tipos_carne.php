@@ -10,7 +10,7 @@ if ($result) {
         echo "<tr>";
         echo "<td>{$contador}</td>";
         echo "<td>{$row['nombre']}</td>";
-        echo "<td><button class='btn btn-danger btn-eliminar' data-id='{$row['id_tipo_producto']}'>Eliminar</button></td>";
+        echo "<td><button class='btn btn-danger btn-eliminar' data-id='{$row['id_tipo_producto']}'><i class='fa fa-trash'></i></button></td>";
         echo "</tr>";
         $contador++;  // Incrementar el contador para la siguiente fila
     }

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -117,13 +116,42 @@
             opacity: 0.6;
         }
 
+        .table-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .table {
+            width: 80%;
+            text-align: center;
+        }
+
         .table .acciones {
             display: flex;
+            justify-content: center;
             gap: 10px;
+        }
+
+        .autocomplete-suggestions {
+            border: 1px solid #d4d4d4;
+            max-height: 150px;
+            overflow-y: auto;
+            position: absolute;
+            background-color: #fff;
+            z-index: 9999;
+            width: 100%;
+        }
+
+        .autocomplete-suggestion {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .autocomplete-suggestion:hover {
+            background-color: #e9ecef;
         }
     </style>
 </head>
-
 <body>
     <!-- Navbar Start -->
     <div class="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
@@ -158,6 +186,7 @@
                         <div class="form-group">
                             <label for="nombre" class="form-label">Nombre del Tipo de Carne:</label>
                             <input type="text" id="nombre" name="nombre" class="form-control" required>
+                            <div id="suggestions" class="autocomplete-suggestions"></div>
                         </div>
                         <button type="submit" class="btn btn-primary mt-3">Registrar</button>
                         <div class="spinner-border spinner" role="status">
@@ -169,9 +198,9 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h2>Eliminar Tipo de Carne</h2>
+                    <h2>Tipos de Carne Existentes</h2>
                 </div>
-                <div class="card-body">
+                <div class="card-body table-container">
                     <table class="table">
                         <thead>
                             <tr>
@@ -249,31 +278,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Error al verificar el producto.
+                    Error al verificar el producto. Por favor, ingrese un nombre válido.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal para Confirmar Ingreso -->
-    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmModalLabel">Confirmar Ingreso</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa fa-times"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    El producto ingresado no es un tipo de carne. ¿Desea ingresarlo de todas formas?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="confirmButton">Sí, ingresar</button>
                 </div>
             </div>
         </div>
@@ -315,55 +323,30 @@
     <script>
         $(document).ready(function () {
             var formData;
-            var idTipoCarneToDelete; // Variable para almacenar el ID del tipo de carne a eliminar
+            var debounceTimer;
 
             $('#formRegistrar').on('submit', function (event) {
                 event.preventDefault(); // Evita que el formulario se envíe de la manera tradicional
                 formData = $(this).serialize();
                 var productName = $('#nombre').val();
 
-                // Verificar si el producto es un tipo de carne mediante la API de OpenFoodFacts
-                $.ajax({
-                    url: 'https://world.openfoodfacts.org/cgi/search.pl',
-                    type: 'GET',
-                    data: {
-                        search_terms: productName,
-                        json: true
-                    },
-                    beforeSend: function () {
-                        $('#formRegistrar').addClass('loading');
-                    },
-                    success: function (apiResponse) {
-                        var isMeat = false;
-                        if (apiResponse && apiResponse.products) {
-                            apiResponse.products.forEach(function (product) {
-                                if (product.categories && product.categories.includes("Meats")) {
-                                    isMeat = true;
-                                }
-                            });
-                        }
-                        $('#formRegistrar').removeClass('loading');
-                        if (isMeat) {
-                            // Si es un tipo de carne, proceder con el envío del formulario
-                            enviarFormulario(formData);
-                        } else {
-                            var confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
-                            confirmModal.show();
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        $('#formRegistrar').removeClass('loading');
-                        console.log('Error:', textStatus, errorThrown);
+                // Llamar a la función de verificación
+                verificarTipoCarneOMarisco(productName, function (error, isMeatOrSeafood) {
+                    if (error) {
+                        console.log('Error:', error);
+                        var verifyErrorModal = new bootstrap.Modal(document.getElementById('verifyErrorModal'));
+                        verifyErrorModal.show();
+                        return;
+                    }
+
+                    if (isMeatOrSeafood) {
+                        // Si es un tipo de carne o marisco, proceder con el envío del formulario
+                        enviarFormulario(formData);
+                    } else {
                         var verifyErrorModal = new bootstrap.Modal(document.getElementById('verifyErrorModal'));
                         verifyErrorModal.show();
                     }
                 });
-            });
-
-            $('#confirmButton').on('click', function () {
-                var confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
-                confirmModal.hide();
-                enviarFormulario(formData);
             });
 
             function enviarFormulario(formData) {
@@ -398,6 +381,89 @@
                 });
             }
 
+            // Función para verificar si el producto es un tipo de carne o marisco
+            function verificarTipoCarneOMarisco(productName, callback) {
+                $.ajax({
+                    url: 'https://world.openfoodfacts.org/cgi/search.pl',
+                    type: 'GET',
+                    data: {
+                        search_terms: productName,
+                        json: true
+                    },
+                    beforeSend: function () {
+                        $('#formRegistrar').addClass('loading');
+                    },
+                    success: function (apiResponse) {
+                        $('#formRegistrar').removeClass('loading');
+                        var isMeatOrSeafood = false;
+                        if (apiResponse && apiResponse.products) {
+                            apiResponse.products.forEach(function (product) {
+                                if (product.categories) {
+                                    var categories = product.categories.toLowerCase();
+                                    if (categories.includes("meats") || categories.includes("seafood") || categories.includes("fish") || categories.includes("shellfish")) {
+                                        if (product.categories_tags.includes("en:meats") || product.categories_tags.includes("en:seafood")) {
+                                            isMeatOrSeafood = true;
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                        callback(null, isMeatOrSeafood);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $('#formRegistrar').removeClass('loading');
+                        callback(new Error(textStatus));
+                    }
+                });
+            }
+
+            // Autocompletado para el campo de nombre con debounce
+            $('#nombre').on('input', function () {
+                clearTimeout(debounceTimer);
+                var productName = $(this).val();
+
+                if (productName.length > 2) {
+                    debounceTimer = setTimeout(function () {
+                        $.ajax({
+                            url: 'https://world.openfoodfacts.org/cgi/search.pl',
+                            type: 'GET',
+                            data: {
+                                search_terms: productName,
+                                json: true
+                            },
+                            success: function (apiResponse) {
+                                var suggestions = '';
+                                if (apiResponse && apiResponse.products) {
+                                    apiResponse.products.slice(0, 10).forEach(function (product) {
+                                        if (product.product_name) {
+                                            if (product.categories_tags.includes("en:meats") || product.categories_tags.includes("en:seafood")) {
+                                                suggestions += '<div class="autocomplete-suggestion">' + product.product_name + '</div>';
+                                            }
+                                        }
+                                    });
+                                }
+                                $('#suggestions').html(suggestions).show();
+                            }
+                        });
+                    }, 300); // Espera 300ms después de que el usuario deja de escribir
+                } else {
+                    $('#suggestions').hide();
+                }
+            });
+
+            // Seleccionar una sugerencia
+            $(document).on('click', '.autocomplete-suggestion', function () {
+                $('#nombre').val($(this).text());
+                $('#suggestions').hide();
+            });
+
+            // Cerrar las sugerencias de autocompletado al hacer clic fuera
+            $(document).on('click', function (event) {
+                if (!$(event.target).closest('#nombre, #suggestions').length) {
+                    $('#suggestions').hide();
+                }
+            });
+
             // Mostrar el modal de confirmación de eliminación
             $(document).on('click', '.btn-eliminar', function () {
                 idTipoCarneToDelete = $(this).data('id');
@@ -427,5 +493,4 @@
         });
     </script>
 </body>
-
 </html>

@@ -10,9 +10,9 @@
     <link href="../img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Lora:wght@600;700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Lora:wght@600;700&display=swap" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -51,6 +51,19 @@
         .btn-lg-square {
             display: none;
         }
+
+        .form-control::placeholder {
+            color: #6c757d;
+            opacity: 1;
+        }
+
+        .select-placeholder {
+            color: #6c757d;
+        }
+
+        select.form-control option:first-child {
+            color: #6c757d;
+        }
     </style>
 </head>
 
@@ -63,8 +76,8 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="../view/admin_menu.html" class="nav-item nav-link" data-bs-toggle="tooltip" data-bs-original-title="Salir de la sesión de administrador">
-                        <i class="bi bi-door-closed me-2"></i>Volver
+                    <a href="../view/admin_menu.html" class="nav-item nav-link" data-bs-toggle="tooltip" data-bs-original-title="Volver al menú administrador">
+                        <i class="fa fa-arrow-left me-2"></i>Volver
                     </a>
                 </div>
             </div>
@@ -79,7 +92,7 @@
                 <h1 class="display-5 mb-3">Subir Producto</h1>
                 <p>Bienvenido, admin. Sube nuevos productos a la tienda.</p>
             </div>
-            <form action="../model/admin_up.php" method="post" class="wow fadeInUp" data-wow-delay="0.1s">
+            <form action="../Model/admin_up.php" method="post" enctype="multipart/form-data" class="wow fadeInUp" data-wow-delay="0.1s">
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre del Producto</label>
                     <input type="text" name="nombre" class="form-control" id="nombre" required>
@@ -90,7 +103,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="precio" class="form-label">Precio</label>
-                    <input type="number" step="0.01" name="precio" class="form-control" id="precio" required>
+                    <input type="text" name="precio" class="form-control" id="precio" required>
                 </div>
                 <div class="mb-3">
                     <label for="cantidad" class="form-label">Cantidad Disponible</label>
@@ -98,20 +111,18 @@
                 </div>
                 <div class="mb-3">
                     <label for="peso" class="form-label">Peso (lb)</label>
-                    <input type="number" step="0.01" name="peso" class="form-control" id="peso" required>
+                    <input type="text" name="peso" class="form-control" id="peso" required>
                 </div>
                 <div class="mb-3">
-                    <label for="id_tipo_producto" class="form-label">Tipo de Producto</label>
-                    <select name="id_tipo_producto" id="id_tipo_producto" class="form-control" required>
-                        <option value="6">Res</option>
-                        <option value="7">Pollo</option>
-                        <option value="8">Cerdo</option>
-                        <option value="9">Embutidos</option>
+                    <label for="tipo_producto" class="form-label">Tipo de Producto</label>
+                    <select name="id_tipo_producto" id="tipo_producto" class="form-control" required>
+                        <option class="select-placeholder" value="" disabled selected>Selecciona el tipo de carne</option>
+                        <!-- Los tipos de productos se cargarán dinámicamente -->
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="imagen_url" class="form-label">URL de la Imagen del Producto (solo .png)</label>
-                    <input type="url" name="imagen_url" class="form-control" id="imagen_url" pattern="https?://.+" required>
+                    <label for="imagen" class="form-label">Imagen del Producto (solo .png)</label>
+                    <input type="file" name="imagen" class="form-control" id="imagen" accept=".png" required>
                 </div>
                 <button type="submit" class="btn btn-primary w-100 py-3 fs-4">Guardar Producto</button>
             </form>
@@ -145,7 +156,36 @@
                 trigger: 'hover',
                 placement: 'top',
                 template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner fs-5"></div></div>'
-            })
+            });
+
+            // Cargar tipos de productos dinámicamente
+            $.ajax({
+                url: '../model/get_tipos_productos.php',
+                type: 'GET',
+                success: function(response) {
+                    $('#tipo_producto').html('<option class="select-placeholder" value="" disabled selected>Selecciona el tipo de carne</option>' + response);
+                }
+            });
+
+            // Formatear campo de precio
+            $('#precio').on('input', function () {
+                var value = $(this).val().replace(/[^0-9.]/g, '');
+                $(this).val('$' + value);
+            });
+
+            // Formatear campo de peso
+            $('#peso').on('input', function () {
+                var value = $(this).val().replace(/[^0-9.]/g, '');
+                $(this).val(value + ' lbs');
+            });
+
+            $('form').on('submit', function () {
+                var precio = $('#precio').val().replace('$', '');
+                $('#precio').val(precio);
+
+                var peso = $('#peso').val().replace(' lbs', '');
+                $('#peso').val(peso);
+            });
         });
     </script>
 </body>
