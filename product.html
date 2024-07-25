@@ -29,6 +29,7 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/carritomodal.css">
 </head>
 
 <body>
@@ -81,9 +82,24 @@
                     <a class="btn-sm-square bg-white rounded-circle ms-3" href="Controller/Controlador.php?opcion=1">
                         <small class="fa fa-user text-body"></small>
                     </a>
-                    <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
+                    <!-- Botón del carrito -->
+                    <a class="btn-sm-square bg-white rounded-circle ms-3" id="cart-button" href="#">
                         <small class="fa fa-shopping-bag text-body"></small>
+                        <span id="cart-count" class="badge bg-primary rounded-circle">0</span>
                     </a>
+                    
+                    <!-- Modal del carrito -->
+                    <div id="cart-modal" class="modal">
+                        <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h2>Carrito de Compras</h2>
+                        <div id="cart-list"></div>
+                        <div id="cart-subtotal"></div>
+                        <button id="view-cart-button">Ver carrito</button>
+                        <button id="checkout-button">Finalizar compra</button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </nav>
@@ -144,8 +160,8 @@
                                     <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Oferta</div>
                                 </div>
                                 <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Chuleta</a>
-                                    <span class="text-primary me-1">$2.64</span>
+                                    <a class="d-block h5 mb-2" href="" id="Name">Chuleta</a>
+                                    <span class="text-primary me-1" id="Price">$2.64</span>
                                     <span class="text-body text-decoration-line-through">$3.98</span>
                                 </div>
                                 <div class="d-flex border-top">
@@ -153,32 +169,34 @@
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>Ver detalles</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
+                                        <a class="text-body add-to-cart" data-id="1" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                       
+                        <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                             <div class="product-item">
                                 <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-2.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
+                                    <img class="img-fluid w-100" src="img/Chuletas.png" alt="">
+                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Oferta</div>
                                 </div>
                                 <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
+                                    <a class="d-block h5 mb-2" href="" id="Name">Alitas de pollo</a>
+                                    <span class="text-primary me-1" id="Price">$2.00</span>
+                                    <span class="text-body text-decoration-line-through">$3.98</span>
                                 </div>
                                 <div class="d-flex border-top">
                                     <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
+                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>Ver detalles</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="2" data-name="Alita de pollo" data-price="2.00" data-img="img/Chuletas.png" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                             <div class="product-item">
                                 <div class="position-relative bg-light overflow-hidden">
@@ -812,6 +830,7 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script src="js/carrito.js"></script> 
 </body>
 
 </html>
