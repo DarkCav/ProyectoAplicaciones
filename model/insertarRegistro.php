@@ -67,7 +67,8 @@ try {
         </script>
     ';
 }
-mysqli_close($conn);*/
+mysqli_close($conn); SIN LA CONFIRMACION*/
+
 header('Content-Type: text/html; charset=utf-8');
 include '../config/conexion.php';
 
@@ -110,7 +111,7 @@ if($contrasena == $confirmarC){
         // Si todo está bien, confirmar la transacción
         mysqli_commit($conn);
 
-        $redirect_page = ($tipo_usuario === "Administrador") ? "../view/admin_menu.html" : "../indexU.php";
+        $redirect_page = ($tipo_usuario === "Administrador") ? "../view/admin_menu.html" : "../index.html";
 
         echo '
             <script>

@@ -67,6 +67,7 @@
                 </div>
             </div>
 
+
             <!--Formulario de Login y registro-->
             <div class="contenedor__login-register" >
                 <!--Login-->

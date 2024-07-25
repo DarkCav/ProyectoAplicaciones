@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Responder con éxito y la URL de redirección
             echo json_encode([
                 'success' => true,
-                'redirect' => $row['tipo'] === 'Administrador' ? '../view/admin_menu.html' : '../indexU.php'
+                'redirect' => $row['tipo'] === 'Administrador' ? '../view/admin_menu.html' : '../index.html'
             ]);
         } else {
             echo json_encode([
