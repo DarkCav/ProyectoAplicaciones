@@ -77,11 +77,15 @@ function removeFromCart(event) {
 // Función para abrir el modal
 function openModal() {
     document.getElementById('cart-modal').style.display = 'block';
+    document.querySelector('.modal-content').classList.add('show');
 }
 
 // Función para cerrar el modal
 function closeModal() {
-    document.getElementById('cart-modal').style.display = 'none';
+    document.querySelector('.modal-content').classList.remove('show');
+    setTimeout(() => {
+        document.getElementById('cart-modal').style.display = 'none';
+    }, 300);
 }
 
 // Añadir event listener a los botones "Añadir al carrito"
@@ -94,6 +98,15 @@ document.getElementById('cart-button').addEventListener('click', openModal);
 
 // Event listener para cerrar el modal
 document.querySelector('.close').addEventListener('click', closeModal);
+
+// Cerrar el modal al hacer clic fuera de este
+window.addEventListener('click', function(event) {
+    const modal = document.getElementById('cart-modal');
+    const modalContent = document.querySelector('.modal-content');
+    if (event.target === modal && !modalContent.contains(event.target)) {
+        closeModal();
+    }
+});
 
 // Inicializar la interfaz del carrito al cargar la página
 updateCartUI();

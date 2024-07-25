@@ -104,19 +104,18 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                         <small class="fa fa-shopping-bag text-body"></small>
                         <span id="cart-count" class="badge bg-primary rounded-circle">0</span>
                     </a>
-                    
+
                     <!-- Modal del carrito -->
                     <div id="cart-modal" class="modal">
                         <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <h2>Carrito de Compras</h2>
-                        <div id="cart-list"></div>
-                        <div id="cart-subtotal"></div>
-                        <button id="view-cart-button">Ver carrito</button>
-                        <button id="checkout-button">Finalizar compra</button>
+                            <span class="close">&times;</span>
+                            <h2>Carrito de Compras</h2>
+                            <div id="cart-list"></div>
+                            <div id="cart-subtotal"></div>
+                            <button id="view-cart-button" class="btn btn-primary">Ver carrito</button>
+                            <button id="checkout-button" class="btn btn-success">Finalizar compra</button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </nav>
@@ -191,7 +190,6 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                 </div>
                             </div>
                         </div>
-                       
                         <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                             <div class="product-item">
                                 <div class="position-relative bg-light overflow-hidden">
@@ -208,7 +206,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>Ver detalles</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="2" data-name="Alita de pollo" data-price="2.00" data-img="img/Chuletas.png" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
+                                        <a class="text-body add-to-cart" data-id="2" data-name="Alita de Cerdo" data-price="2.00" data-img="img/Chuletas.png" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -230,7 +228,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="3" data-name="lomitos" data-price="3.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -251,7 +249,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="4" data-name="Filete" data-price="5.25" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -272,7 +270,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="5" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -293,7 +291,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="6" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -313,8 +311,8 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                     <small class="w-50 text-center border-end py-2">
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                    <<small class="w-50 text-center py-2">
+                                        <a class="text-body add-to-cart" data-id="7" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -335,7 +333,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="8" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -363,7 +361,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="9" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -384,7 +382,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="10" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -405,7 +403,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="11" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -426,7 +424,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="12" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -447,7 +445,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="13" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -468,7 +466,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="14" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -489,7 +487,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="15" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -510,7 +508,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="16" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -538,7 +536,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="17" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -559,7 +557,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="18" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -580,7 +578,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="19" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -601,7 +599,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="20" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -622,7 +620,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="21" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -643,7 +641,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="22" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -664,7 +662,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="23" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>
@@ -685,7 +683,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                                         <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                        <a class="text-body add-to-cart" data-id="24" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
                                     </small>
                                 </div>
                             </div>

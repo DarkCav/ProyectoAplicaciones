@@ -49,6 +49,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/carritomodal.css">
 </head>
 
 <body>
@@ -98,9 +99,23 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
                             <a href="indexU.php?logout='1'" class="dropdown-item">Cerrar Sesión</a>
                         </div>
                     </div>
-                    <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
+                    <!-- Botón del carrito -->
+                    <a class="btn-sm-square bg-white rounded-circle ms-3" id="cart-button" href="#">
                         <small class="fa fa-shopping-bag text-body"></small>
+                        <span id="cart-count" class="badge bg-primary rounded-circle">0</span>
                     </a>
+
+                    <!-- Modal del carrito -->
+                    <div id="cart-modal" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <h2>Carrito de Compras</h2>
+                            <div id="cart-list"></div>
+                            <div id="cart-subtotal"></div>
+                            <button id="view-cart-button" class="btn btn-primary">Ver carrito</button>
+                            <button id="checkout-button" class="btn btn-success">Finalizar compra</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -273,6 +288,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script src="js/carrito.js"></script> 
 </body>
 
 </html>
