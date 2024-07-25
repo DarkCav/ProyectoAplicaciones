@@ -1,9 +1,9 @@
 <?php
 // Procedimental
 $servername = "sql10.freesqldatabase.com";
-$username = "sql10721788";
-$password = "QtihlLjnmA"; 
-$database = "sql10721788";
+$username = "sql10722097";
+$password = "YV7WAYwTWJ"; 
+$database = "sql10722097";
 
 $conn = mysqli_connect($servername, $username, $password, $database);
 if (!$conn) {
