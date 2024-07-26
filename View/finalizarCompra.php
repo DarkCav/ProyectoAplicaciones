@@ -18,21 +18,6 @@ if (isset($_GET['logout'])) { //CERRAR SESSION
 
 echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</script>";
 
-require_once '../Model/llenarfactura.php';
-require_once '../Model/llenarfacturaDetalle.php';
-
-// Validar el parámetro 'id_factura'
-if (!isset($_GET['id_factura']) || !filter_var($_GET['id_factura'], FILTER_VALIDATE_INT)) {
-    die("ID de factura no válido o no proporcionado.");
-}
-
-$id_factura = (int)$_GET['id_factura'];
-$factura = obtenerFacturaPorId($id_factura);
-if (!$factura) {
-    die("Factura no encontrada.");
-}
-
-$detalles = obtenerDetallesFactura($id_factura);
 ?>
 
 <!DOCTYPE html>
@@ -146,41 +131,47 @@ $detalles = obtenerDetallesFactura($id_factura);
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a class="text-body" href="index.html">Inicio</a></li>
                     <!--<li class="breadcrumb-item"><a class="text-body" href="#">Pagina</a></li>-->
-                    <li class="breadcrumb-item text-dark active" aria-current="page">Carrito de Compras</li>
+                    <li class="breadcrumb-item text-dark active" aria-current="page">Finalizar Compra</li>
                 </ol>
             </nav>
         </div>
     </div>
     <!-- Page Header End -->
 
-    <!-- Carrito de Compras inicio-->	
-    <h1>Detalle del Carrito</h1>
-    <h2>Factura ID: <?php echo htmlspecialchars($factura['id_factura']); ?></h2>
-    <p>Fecha: <?php echo htmlspecialchars($factura['fecha']); ?></p>
-    <p>Total: $<?php echo number_format($factura['total'], 2); ?></p>
+    <!-- Carrito de Compras Finalizar Compra-->	
+    <h1>Información de Compra</h1>
+    <form id="checkoutForm" action="procesar-compra.php" method="POST">
+        <label for="paymentMethod">Método de Pago:</label>
+        <select id="paymentMethod" name="paymentMethod">
+            <option value="credit_card">Tarjeta de Crédito</option>
+            <option value="paypal">PayPal</option>
+            <option value="bank_transfer">Transferencia Bancaria</option>
+        </select>
+
+        <label for="deliveryOption">Opción de Entrega:</label>
+        <select id="deliveryOption" name="deliveryOption">
+            <option value="delivery">Envío</option>
+            <option value="pickup">Retiro en Local</option>
+        </select>
+
+        <div id="deliveryAddress" style="display: none;">
+            <label for="address">Dirección de Envío:</label>
+            <input type="text" id="address" name="address" />
+        </div>
+
+        <div id="pickupDetails" style="display: none;">
+            <label for="pickupLocation">Lugar de Retiro:</label>
+            <input type="text" id="pickupLocation" name="pickupLocation" />
+            <label for="pickupTime">Hora de Retiro:</label>
+            <input type="time" id="pickupTime" name="pickupTime" />
+        </div>
+
+        <label for="comments">Comentarios Adicionales:</label>
+        <textarea id="comments" name="comments"></textarea>
+
+        <button type="submit">Confirmar Compra</button>
+    </form>
     
-    <table>
-        <thead>
-            <tr>
-                <th>Imagen</th>
-                <th>Nombre</th>
-                <th>Cantidad</th>
-                <th>Precio Unitario</th>
-                <th>Subtotal</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($detalles as $detalle): ?>
-            <tr>
-                <td><img src="../uploads/<?php echo htmlspecialchars($detalle['imagen']); ?>" alt="<?php echo htmlspecialchars($detalle['nombre']); ?>" width="100"></td>
-                <td><?php echo htmlspecialchars($detalle['nombre']); ?></td>
-                <td><?php echo htmlspecialchars($detalle['cantidad']); ?></td>
-                <td>$<?php echo number_format($detalle['precio_unitario'], 2); ?></td>
-                <td>$<?php echo number_format($detalle['subtotal'], 2); ?></td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
     <!-- Carrito de Compras fin-->
 
 

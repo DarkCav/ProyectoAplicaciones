@@ -100,5 +100,16 @@ updateCartUI();
 
 // Redirigir a la página de detalle del carrito
 document.getElementById('view-cart-button').addEventListener('click', function() {
-    window.location.href = 'view/CarritoDetalle.php';
+    window.location.href = 'View/CarritoDetalle.php';
+});
+
+document.getElementById('finalizePurchaseBtn').addEventListener('click', function() {
+    window.location.href = 'View/finalizarCompra.php'; // Redirige a la nueva página
+});
+
+
+document.getElementById('deliveryOption').addEventListener('change', function() {
+    const deliveryOption = this.value;
+    document.getElementById('deliveryAddress').style.display = deliveryOption === 'delivery' ? 'block' : 'none';
+    document.getElementById('pickupDetails').style.display = deliveryOption === 'pickup' ? 'block' : 'none';
 });

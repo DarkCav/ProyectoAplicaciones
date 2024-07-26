@@ -121,7 +121,7 @@ $categoriaNombre = $controlador->obtenerNombreCategoria($tipoProductoId);
                             <div id="cart-list"></div>
                             <div id="cart-subtotal"></div>
                             <button id="view-cart-button" class="btn btn-primary">Ver carrito</button>
-                            <button id="checkout-button" class="btn btn-success">Finalizar compra</button>
+                            <button id="finalizePurchaseBtn" id="checkout-button" >Finalizar Compra</button>
                         </div>
                     </div>
                 </div>
@@ -179,7 +179,7 @@ $categoriaNombre = $controlador->obtenerNombreCategoria($tipoProductoId);
                             echo '<p>No hay productos disponibles en esta categoría.</p>';
                         } else {
                             foreach ($productos as $producto) {
-                                $imagen = isset($producto['imagen_url']) ? $producto['imagen_url'] : 'uploads/default.jpg';
+                                $imagen = isset($producto['imagen_url']) ? $producto['imagen_url'] : 'uploads/BAN.png';
                                 $precio = isset($producto['precio']) ? $producto['precio'] : '';
                                 $id = isset($producto['id_producto']) ? $producto['id_producto'] : '';
                                 $nombre = isset($producto['nombre']) ? $producto['nombre'] : '';
