@@ -76,7 +76,7 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
         </div>
 
         <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
-            <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
+            <a href="../index.html" class="navbar-brand ms-4 ms-lg-0">
                 <h1 class="fw-bold text-primary m-0">San<span class="text-secondary">Pe</span>dro</h1>
             </a>
             <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -139,39 +139,59 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
     <!-- Page Header End -->
 
     <!-- Carrito de Compras Finalizar Compra-->	
-    <h1>Información de Compra</h1>
-    <form id="checkoutForm" action="procesar-compra.php" method="POST">
-        <label for="paymentMethod">Método de Pago:</label>
-        <select id="paymentMethod" name="paymentMethod">
-            <option value="credit_card">Tarjeta de Crédito</option>
-            <option value="paypal">PayPal</option>
-            <option value="bank_transfer">Transferencia Bancaria</option>
-        </select>
+    <!-- Checkout Form Start -->
+    <div class="container">
+        <h2>Información de Compra</h2>
+        <form id="checkoutForm" action="procesar-compra.php" method="POST">
+            <div class="mb-3">
+                <label for="paymentMethod" class="form-label">Método de Pago:</label>
+                <select id="paymentMethod" name="paymentMethod" class="form-select" required>
+                    <option value="" disabled selected>Selecciona un método de pago</option>
+                    <option value="credit_card">Tarjeta de Crédito</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="bank_transfer">Transferencia Bancaria</option>
+                </select>
+            </div>
 
-        <label for="deliveryOption">Opción de Entrega:</label>
-        <select id="deliveryOption" name="deliveryOption">
-            <option value="delivery">Envío</option>
-            <option value="pickup">Retiro en Local</option>
-        </select>
+            <div class="mb-3">
+                <label for="deliveryOption" class="form-label">Opción de Entrega:</label>
+                <select id="deliveryOption" name="deliveryOption" class="form-select" required>
+                    <option value="" disabled selected>Selecciona una opción de entrega</option>
+                    <option value="delivery">Envío</option>
+                    <option value="pickup">Retiro en Local</option>
+                </select>
+            </div>
 
-        <div id="deliveryAddress" style="display: none;">
-            <label for="address">Dirección de Envío:</label>
-            <input type="text" id="address" name="address" />
-        </div>
+            <div id="deliveryAddress" class="mb-3" style="display: none;">
+                <label for="address" class="form-label">Dirección de Envío:</label>
+                <input type="text" id="address" name="address" class="form-control" />
+            </div>
 
-        <div id="pickupDetails" style="display: none;">
-            <label for="pickupLocation">Lugar de Retiro:</label>
-            <input type="text" id="pickupLocation" name="pickupLocation" />
-            <label for="pickupTime">Hora de Retiro:</label>
-            <input type="time" id="pickupTime" name="pickupTime" />
-        </div>
+            <div id="pickupDetails" class="mb-3" style="display: none;">
+                <label for="pickupLocation" class="form-label">Lugar de Retiro:</label>
+                <input type="text" id="pickupLocation" name="pickupLocation" class="form-control" />
+                <label for="pickupTime" class="form-label">Hora de Retiro:</label>
+                <input type="time" id="pickupTime" name="pickupTime" class="form-control" />
+            </div>
 
-        <label for="comments">Comentarios Adicionales:</label>
-        <textarea id="comments" name="comments"></textarea>
+            <div id="paymentDetails" class="mb-3" style="display: none;">
+                <label for="cardNumber" class="form-label">Número de Tarjeta:</label>
+                <input type="text" id="cardNumber" name="cardNumber" class="form-control" pattern="\d{16}" placeholder="1234 5678 9012 3456" />
+                <label for="expiryDate" class="form-label">Fecha de Expiración:</label>
+                <input type="text" id="expiryDate" name="expiryDate" class="form-control" pattern="\d{2}/\d{2}" placeholder="MM/AA" />
+                <label for="cvv" class="form-label">Código de Seguridad (CVV):</label>
+                <input type="text" id="cvv" name="cvv" class="form-control" pattern="\d{3}" placeholder="123" />
+            </div>
 
-        <button type="submit">Confirmar Compra</button>
-    </form>
-    
+            <div class="mb-3">
+                <label for="comments" class="form-label">Comentarios Adicionales:</label>
+                <textarea id="comments" name="comments" class="form-control"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Confirmar Compra</button>
+        </form>
+    </div>
+    <!-- Checkout Form End -->
     <!-- Carrito de Compras fin-->
 
 
@@ -245,5 +265,6 @@ echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</scr
     <!-- Template Javascript -->
     <script src="../js/main.js"></script>
     <script src="../js/carrito.js"></script> 
+    <script src="../js/finalizar.js"></script>
 </body>
 </html>
