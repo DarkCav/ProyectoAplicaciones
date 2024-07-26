@@ -45,7 +45,7 @@ if($contrasena == $confirmarC){
 
         echo '
             <script>
-                alert("Usuario registrado exitosamente como ' . $tipo_usuario . '");
+                alert("Usuario registrado exitosamente por favor inicie sesión");
                 window.location = "' . $redirect_page . '";
             </script>
         ';

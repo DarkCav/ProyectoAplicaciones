@@ -82,7 +82,7 @@
                 <!--Register-->
                 <form action="../model/insertarRegistro.php" method="POST" class="formulario__register" id="registerForm">
                     <h2>Regístrarse</h2>
-                    <input type="text" placeholder="Nombre completo" name="nombre_completo" required  pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+">
+                    <input type="text" placeholder="Nombre y Apellido" name="nombre_completo" required  pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+">
                     <input type="email" placeholder="Correo Electronico" name="correo" required>
                     <input type="text" placeholder="Dirección" name="direccion" required >
                     <input type="text" placeholder="Teléfono" name="telefono" required  pattern="\d{10}">
@@ -91,7 +91,7 @@
                     <input type="password" placeholder="Confirmar contraseña" name="confirmar" id=" confirm_password">
                     <select name="tipo" required>
                         <option value="">Seleccione el tipo de usuario</option>
-                        <option value="Normal">Normal</option>
+                        <option value="Normal">Cliente</option>
                         <option value="Administrador">Administrador</option>
                     </select>
                     <button type="submit">Regístrarse</button>
