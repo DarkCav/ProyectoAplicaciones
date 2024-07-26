@@ -79,3 +79,63 @@
     width: 100%;
   }
 }
+
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Page Header */
+.page-header {
+  background: #f8f9fa;
+  padding: 50px 0;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  color: #343a40;
+  text-align: center;
+}
+
+/* Form Styles */
+form {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+form .form-label {
+  font-weight: 600;
+}
+
+.form-control {
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+}
+
+.form-select {
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Display and Hide Sections */
+#deliveryAddress, #pickupDetails, #paymentDetails {
+  display: none;
+}

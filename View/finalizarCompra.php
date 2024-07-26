@@ -18,21 +18,6 @@ if (isset($_GET['logout'])) { //CERRAR SESSION
 
 echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</script>";
 
-require_once '../Model/llenarfactura.php';
-require_once '../Model/llenarfacturaDetalle.php';
-
-// Validar el parámetro 'id_factura'
-if (!isset($_GET['id_factura']) || !filter_var($_GET['id_factura'], FILTER_VALIDATE_INT)) {
-    die("ID de factura no válido o no proporcionado.");
-}
-
-$id_factura = (int)$_GET['id_factura'];
-$factura = obtenerFacturaPorId($id_factura);
-if (!$factura) {
-    die("Factura no encontrada.");
-}
-
-$detalles = obtenerDetallesFactura($id_factura);
 ?>
 
 <!DOCTYPE html>
@@ -91,7 +76,7 @@ $detalles = obtenerDetallesFactura($id_factura);
         </div>
 
         <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
-            <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
+            <a href="../index.html" class="navbar-brand ms-4 ms-lg-0">
                 <h1 class="fw-bold text-primary m-0">San<span class="text-secondary">Pe</span>dro</h1>
             </a>
             <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -146,41 +131,67 @@ $detalles = obtenerDetallesFactura($id_factura);
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a class="text-body" href="index.html">Inicio</a></li>
                     <!--<li class="breadcrumb-item"><a class="text-body" href="#">Pagina</a></li>-->
-                    <li class="breadcrumb-item text-dark active" aria-current="page">Carrito de Compras</li>
+                    <li class="breadcrumb-item text-dark active" aria-current="page">Finalizar Compra</li>
                 </ol>
             </nav>
         </div>
     </div>
     <!-- Page Header End -->
 
-    <!-- Carrito de Compras inicio-->	
-    <h1>Detalle del Carrito</h1>
-    <h2>Factura ID: <?php echo htmlspecialchars($factura['id_factura']); ?></h2>
-    <p>Fecha: <?php echo htmlspecialchars($factura['fecha']); ?></p>
-    <p>Total: $<?php echo number_format($factura['total'], 2); ?></p>
-    
-    <table>
-        <thead>
-            <tr>
-                <th>Imagen</th>
-                <th>Nombre</th>
-                <th>Cantidad</th>
-                <th>Precio Unitario</th>
-                <th>Subtotal</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($detalles as $detalle): ?>
-            <tr>
-                <td><img src="../uploads/<?php echo htmlspecialchars($detalle['imagen']); ?>" alt="<?php echo htmlspecialchars($detalle['nombre']); ?>" width="100"></td>
-                <td><?php echo htmlspecialchars($detalle['nombre']); ?></td>
-                <td><?php echo htmlspecialchars($detalle['cantidad']); ?></td>
-                <td>$<?php echo number_format($detalle['precio_unitario'], 2); ?></td>
-                <td>$<?php echo number_format($detalle['subtotal'], 2); ?></td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+    <!-- Carrito de Compras Finalizar Compra-->	
+    <!-- Checkout Form Start -->
+    <div class="container">
+        <h2>Información de Compra</h2>
+        <form id="checkoutForm" action="procesar-compra.php" method="POST">
+            <div class="mb-3">
+                <label for="paymentMethod" class="form-label">Método de Pago:</label>
+                <select id="paymentMethod" name="paymentMethod" class="form-select" required>
+                    <option value="" disabled selected>Selecciona un método de pago</option>
+                    <option value="credit_card">Tarjeta de Crédito</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="bank_transfer">Transferencia Bancaria</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="deliveryOption" class="form-label">Opción de Entrega:</label>
+                <select id="deliveryOption" name="deliveryOption" class="form-select" required>
+                    <option value="" disabled selected>Selecciona una opción de entrega</option>
+                    <option value="delivery">Envío</option>
+                    <option value="pickup">Retiro en Local</option>
+                </select>
+            </div>
+
+            <div id="deliveryAddress" class="mb-3" style="display: none;">
+                <label for="address" class="form-label">Dirección de Envío:</label>
+                <input type="text" id="address" name="address" class="form-control" />
+            </div>
+
+            <div id="pickupDetails" class="mb-3" style="display: none;">
+                <label for="pickupLocation" class="form-label">Lugar de Retiro:</label>
+                <input type="text" id="pickupLocation" name="pickupLocation" class="form-control" />
+                <label for="pickupTime" class="form-label">Hora de Retiro:</label>
+                <input type="time" id="pickupTime" name="pickupTime" class="form-control" />
+            </div>
+
+            <div id="paymentDetails" class="mb-3" style="display: none;">
+                <label for="cardNumber" class="form-label">Número de Tarjeta:</label>
+                <input type="text" id="cardNumber" name="cardNumber" class="form-control" pattern="\d{16}" placeholder="1234 5678 9012 3456" />
+                <label for="expiryDate" class="form-label">Fecha de Expiración:</label>
+                <input type="text" id="expiryDate" name="expiryDate" class="form-control" pattern="\d{2}/\d{2}" placeholder="MM/AA" />
+                <label for="cvv" class="form-label">Código de Seguridad (CVV):</label>
+                <input type="text" id="cvv" name="cvv" class="form-control" pattern="\d{3}" placeholder="123" />
+            </div>
+
+            <div class="mb-3">
+                <label for="comments" class="form-label">Comentarios Adicionales:</label>
+                <textarea id="comments" name="comments" class="form-control"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Confirmar Compra</button>
+        </form>
+    </div>
+    <!-- Checkout Form End -->
     <!-- Carrito de Compras fin-->
 
 
@@ -254,5 +265,6 @@ $detalles = obtenerDetallesFactura($id_factura);
     <!-- Template Javascript -->
     <script src="../js/main.js"></script>
     <script src="../js/carrito.js"></script> 
+    <script src="../js/finalizar.js"></script>
 </body>
 </html>
