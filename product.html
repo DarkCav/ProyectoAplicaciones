@@ -39,7 +39,6 @@
     </div>
     <!-- Spinner End -->
 
-
     <!-- Navbar Start -->
     <div class="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
         <div class="top-bar row gx-0 align-items-center d-none d-lg-flex">
@@ -64,24 +63,21 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="index.html" class="nav-item nav-link">Inicio</a>
-                    <a href="about.html" class="nav-item nav-link">Sobre nosotros</a>
-                    <a href="product.html" class="nav-item nav-link active">Productos</a>
-                    <!--<div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Páginas</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="blog.html" class="dropdown-item">Cuadro de blog</a>
-                            <a href="feature.html" class="dropdown-item">Nuestras características</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                            <a href="404.html" class="dropdown-item">404 Page</a>
-                        </div>
-                    </div>-->
-                    <a href="contact.html" class="nav-item nav-link">Contáctanos</a>
+                    <a href="indexU.php" class="nav-item nav-link">Inicio</a>
+                    <a href="about.php" class="nav-item nav-link">Sobre nosotros</a>
+                    <a href="productG.php" class="nav-item nav-link active">Productos</a>
+                    <a href="contact.php" class="nav-item nav-link">Contáctanos</a>
                 </div>
                 <div class="d-none d-lg-flex ms-2">
-                    <a class="btn-sm-square bg-white rounded-circle ms-3" href="Controller/Controlador.php?opcion=1">
-                        <small class="fa fa-user text-body"></small>
-                    </a>
+                    <div class="nav-item dropdown">
+                        <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
+                            <small class="fa fa-user text-body"></small><?php echo $_SESSION['user_name']; ?>
+                        </a>
+                        <div class="dropdown-menu m-0">
+                            <a href="Controller/Controlador.php?opcion=2" class="dropdown-item">Mis datos</a>
+                            <a href="indexU.php?logout='1'" class="dropdown-item">Cerrar Sesión</a>
+                        </div>
+                    </div>
                     <!-- Botón del carrito -->
                     <a class="btn-sm-square bg-white rounded-circle ms-3" id="cart-button" href="#">
                         <small class="fa fa-shopping-bag text-body"></small>
@@ -99,13 +95,11 @@
                             <button id="checkout-button" class="btn btn-success">Finalizar compra</button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </nav>
     </div>
     <!-- Navbar End -->
-
 
     <!-- Page Header Start -->
     <div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
@@ -114,14 +108,12 @@
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a class="text-body" href="index.html">Inicio</a></li>
-                    <!--<li class="breadcrumb-item"><a class="text-body" href="#">Pagina</a></li>-->
                     <li class="breadcrumb-item text-dark active" aria-current="page">Productos</li>
                 </ol>
             </nav>
         </div>
     </div>
     <!-- Page Header End -->
-
 
     <!-- Product Start -->
     <div class="container-xxl py-5">
@@ -136,16 +128,16 @@
                 <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
                     <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
                         <li class="nav-item me-2">
-                            <a class="btn btn-outline-primary border-2 active" data-bs-toggle="pill" href="#tab-1">Cerdo</a>
+                            <a class="btn btn-outline-primary border-2 <?php echo $tipoProductoId == 8 ? 'active' : ''; ?>" href="productG.php?tipo=8">Cerdo</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="btn btn-outline-primary border-2" data-bs-toggle="pill" href="#tab-2">Res</a>
+                            <a class="btn btn-outline-primary border-2 <?php echo $tipoProductoId == 11 ? 'active' : ''; ?>" href="productG.php?tipo=11">Res</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="btn btn-outline-primary border-2" data-bs-toggle="pill" href="#tab-3">Pollo</a>
+                            <a class="btn btn-outline-primary border-2 <?php echo $tipoProductoId == 12 ? 'active' : ''; ?>" href="productG.php?tipo=12">Pollo</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="btn btn-outline-primary border-2" data-bs-toggle="pill" href="#tab-4">Embutidos</a>
+                            <a class="btn btn-outline-primary border-2 <?php echo $tipoProductoId == 9 ? 'active' : ''; ?>" href="productG.php?tipo=9">Embutidos</a>
                         </li>
                     </ul>
                 </div>
@@ -153,536 +145,56 @@
             <div class="tab-content">
                 <div id="tab-1" class="tab-pane fade show p-0 active">
                     <div class="row g-4">
-                        <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/Chuletas.png" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Oferta</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="" id="Name">Chuleta</a>
-                                    <span class="text-primary me-1" id="Price">$2.64</span>
-                                    <span class="text-body text-decoration-line-through">$3.98</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>Ver detalles</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="1" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                       
-                        <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/Chuletas.png" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Oferta</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="" id="Name">Alitas de pollo</a>
-                                    <span class="text-primary me-1" id="Price">$2.00</span>
-                                    <span class="text-body text-decoration-line-through">$3.98</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>Ver detalles</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="2" data-name="Alita de Cerdo" data-price="2.00" data-img="img/Chuletas.png" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-3.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="3" data-name="lomitos" data-price="3.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-4.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="4" data-name="Filete" data-price="5.25" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-5.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="5" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-6.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="6" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-7.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <<small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="7" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-8.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="8" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
-                            <a class="btn btn-primary rounded-pill py-3 px-5" href="">Buscar más Productos</a>
-                        </div>
-                    </div>
-                </div>
-                <div id="tab-2" class="tab-pane fade show p-0">
-                    <div class="row g-4">
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-1.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="9" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-2.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="10" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-3.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="11" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-4.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="12" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-5.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="13" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-6.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="14" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-7.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="15" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-8.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="16" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 text-center">
-                            <a class="btn btn-primary rounded-pill py-3 px-5" href="">Buscar más Productos</a>
-                        </div>
-                    </div>
-                </div>
-                <div id="tab-3" class="tab-pane fade show p-0">
-                    <div class="row g-4">
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-1.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="17" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-2.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="18" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-3.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="19" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-4.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="20" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-5.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="21" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-6.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="22" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-7.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="23" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="img/product-8.jpg" alt="">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                                    <span class="text-primary me-1">$19.00</span>
-                                    <span class="text-body text-decoration-line-through">$29.00</span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><i class="fa fa-eye text-primary me-2"></i>View detail</a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                        <a class="text-body add-to-cart" data-id="24" data-name="Chuleta" data-price="2.64" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 text-center">
-                            <a class="btn btn-primary rounded-pill py-3 px-5" href="#">Buscar más Productos</a>
-                        </div>
+                        <?php
+                        if (empty($productos)) {
+                            echo '<p>No hay productos disponibles en esta categoría.</p>';
+                        } else {
+                            foreach ($productos as $producto) {
+                                $imagen = isset($producto['imagen_url']) ? $producto['imagen_url'] : 'uploads/default.jpg';
+                                $precio = isset($producto['precio']) ? $producto['precio'] : '';
+                                $id = isset($producto['id_producto']) ? $producto['id_producto'] : '';
+                                $nombre = isset($producto['nombre']) ? $producto['nombre'] : '';
+                                $descripcion = isset($producto['descripcion']) ? $producto['descripcion'] : '';
+                                $peso = isset($producto['peso']) ? $producto['peso'] : '';
+                                $stock = isset($producto['stock']) ? $producto['stock'] : '';
+
+                                echo '
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <div class="product-item">
+                                        <div class="position-relative bg-light overflow-hidden">
+                                            <img class="img-fluid w-100" src="'.$imagen.'" alt="'.$nombre.'">
+                                            <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
+                                        </div>
+                                        <div class="text-center p-4">
+                                            <a class="d-block h5 mb-2" href="#">'.$nombre.'</a>
+                                            <span class="text-primary me-1">$'.$precio.'</span>
+                                        </div>
+                                        <div class="d-flex border-top">
+                                            <small class="w-50 text-center border-end py-2">
+                                                <a class="text-body" href="#" data-bs-toggle="modal" data-bs-target="#productModal"
+                                                   data-name="'.$nombre.'"
+                                                   data-description="'.$descripcion.'"
+                                                   data-price="'.$precio.'"
+                                                   data-weight="'.$peso.'"
+                                                   data-category="'.$categoriaNombre.'"
+                                                   data-stock="'.$stock.'"
+                                                   data-image="'.$imagen.'"><i class="fa fa-eye text-primary me-2"></i>Ver detalles</a>
+                                            </small>
+                                            <small class="w-50 text-center py-2">
+                                                <a class="text-body add-to-cart" data-id="'.$id.'" data-name="'.$nombre.'" data-price="'.$precio.'" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>';
+                            }
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Product End -->
-
 
     <!-- Firm Visit Start -->
     <div class="container-fluid bg-primary bg-icon mt-5 py-6">
@@ -701,7 +213,6 @@
         </div>
     </div>
     <!-- Firm Visit End -->
-
 
     <!-- Testimonial Start -->
     <div class="container-fluid bg-light bg-icon py-6 mb-5">
@@ -760,7 +271,6 @@
     </div>
     <!-- Testimonial End -->
 
-
     <!-- Footer Start -->
     <div class="container-fluid bg-dark footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
@@ -805,7 +315,6 @@
                         &copy; <a href="#">Cárnicos San Pedro</a>, Derechos Reservados.
                     </div>
                     <div class="col-md-6 text-center text-md-end">
-                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
                         Diseñado por <a href="https://htmlcodex.com">Grupo 5</a>
                         <br>Distribuido por <a href="https://themewagon.com" target="_blank">ESPOCH</a>
                     </div>
@@ -819,7 +328,6 @@
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
 
-
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -831,6 +339,76 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script src="js/carrito.js"></script> 
+
+    <!-- Modal para ver detalles del producto -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel">Detalles del Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img id="modalProductImage" class="img-fluid" src="" alt="Producto">
+                    </div>
+                    <div class="col-md-6">
+                        <h5 id="modalProductName"></h5>
+                        <p id="modalProductDescription"></p>
+                        <p><strong>Precio: </strong>$<span id="modalProductPrice"></span></p>
+                        <p><strong>Peso: </strong><span id="modalProductWeight"></span> kg</p>
+                        <p><strong>Categoría: </strong><span id="modalProductCategory"></span></p>
+                        <p><strong>Stock: </strong><span id="modalProductStock"></span></p>
+                        <button type="button" class="btn btn-primary">Añadir al carrito</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var productModal = document.getElementById('productModal');
+    productModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var name = button.getAttribute('data-name');
+        var description = button.getAttribute('data-description');
+        var price = button.getAttribute('data-price');
+        var weight = button.getAttribute('data-weight');
+        var category = button.getAttribute('data-category');
+        var stock = button.getAttribute('data-stock');
+        var image = button.getAttribute('data-image');
+
+        var modalTitle = productModal.querySelector('.modal-title');
+        var modalBodyName = productModal.querySelector('#modalProductName');
+        var modalBodyDescription = productModal.querySelector('#modalProductDescription');
+        var modalBodyPrice = productModal.querySelector('#modalProductPrice');
+        var modalBodyWeight = productModal.querySelector('#modalProductWeight');
+        var modalBodyCategory = productModal.querySelector('#modalProductCategory');
+        var modalBodyStock = productModal.querySelector('#modalProductStock');
+        var modalBodyImage = productModal.querySelector('#modalProductImage');
+
+        modalTitle.textContent = 'Detalles del Producto: ' + name;
+        modalBodyName.textContent = name;
+        modalBodyDescription.textContent = description;
+        modalBodyPrice.textContent = price;
+        modalBodyWeight.textContent = weight;
+        modalBodyCategory.textContent = category;
+        modalBodyStock.textContent = stock;
+        modalBodyImage.src = image;
+    });
+
+    productModal.addEventListener('hidden.bs.modal', function (event) {
+        var modalBodyImage = productModal.querySelector('#modalProductImage');
+        modalBodyImage.src = '';
+    });
+    
+
+</script>
+
 </body>
+
+
 
 </html>

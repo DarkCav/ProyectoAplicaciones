@@ -353,7 +353,6 @@ $categoriaNombre = $controlador->obtenerNombreCategoria($tipoProductoId);
     </div>
     <!-- Footer End -->
 
-
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
 
@@ -370,74 +369,80 @@ $categoriaNombre = $controlador->obtenerNombreCategoria($tipoProductoId);
     <script src="js/carrito.js"></script> 
 
     <!-- Modal para ver detalles del producto -->
-<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="productModalLabel">Detalles del Producto</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <img id="modalProductImage" class="img-fluid" src="" alt="Producto">
-                    </div>
-                    <div class="col-md-6">
-                        <h5 id="modalProductName"></h5>
-                        <p id="modalProductDescription"></p>
-                        <p><strong>Precio: </strong>$<span id="modalProductPrice"></span></p>
-                        <p><strong>Peso: </strong><span id="modalProductWeight"></span> kg</p>
-                        <p><strong>Categoría: </strong><span id="modalProductCategory"></span></p>
-                        <p><strong>Stock: </strong><span id="modalProductStock"></span></p>
-                        <button type="button" class="btn btn-primary">Añadir al carrito</button>
+    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productModalLabel">Detalles del Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img id="modalProductImage" class="img-fluid" src="" alt="Producto">
+                        </div>
+                        <div class="col-md-6">
+                            <h5 id="modalProductName"></h5>
+                            <p id="modalProductDescription"></p>
+                            <p><strong>Precio: </strong>$<span id="modalProductPrice"></span></p>
+                            <p><strong>Peso: </strong><span id="modalProductWeight"></span> kg</p>
+                            <p><strong>Categoría: </strong><span id="modalProductCategory"></span></p>
+                            <p><strong>Stock: </strong><span id="modalProductStock"></span></p>
+                            <button type="button" class="btn btn-primary add-to-cart" id="modalAddToCartButton">Añadir al carrito</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    var productModal = document.getElementById('productModal');
-    productModal.addEventListener('show.bs.modal', function (event) {
-        var button = event.relatedTarget;
-        var name = button.getAttribute('data-name');
-        var description = button.getAttribute('data-description');
-        var price = button.getAttribute('data-price');
-        var weight = button.getAttribute('data-weight');
-        var category = button.getAttribute('data-category');
-        var stock = button.getAttribute('data-stock');
-        var image = button.getAttribute('data-image');
+    <script>
+        var productModal = document.getElementById('productModal');
+        productModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var name = button.getAttribute('data-name');
+            var description = button.getAttribute('data-description');
+            var price = button.getAttribute('data-price');
+            var weight = button.getAttribute('data-weight');
+            var category = button.getAttribute('data-category');
+            var stock = button.getAttribute('data-stock');
+            var image = button.getAttribute('data-image');
+            var id = button.getAttribute('data-id');
 
-        var modalTitle = productModal.querySelector('.modal-title');
-        var modalBodyName = productModal.querySelector('#modalProductName');
-        var modalBodyDescription = productModal.querySelector('#modalProductDescription');
-        var modalBodyPrice = productModal.querySelector('#modalProductPrice');
-        var modalBodyWeight = productModal.querySelector('#modalProductWeight');
-        var modalBodyCategory = productModal.querySelector('#modalProductCategory');
-        var modalBodyStock = productModal.querySelector('#modalProductStock');
-        var modalBodyImage = productModal.querySelector('#modalProductImage');
+            var modalTitle = productModal.querySelector('.modal-title');
+            var modalBodyName = productModal.querySelector('#modalProductName');
+            var modalBodyDescription = productModal.querySelector('#modalProductDescription');
+            var modalBodyPrice = productModal.querySelector('#modalProductPrice');
+            var modalBodyWeight = productModal.querySelector('#modalProductWeight');
+            var modalBodyCategory = productModal.querySelector('#modalProductCategory');
+            var modalBodyStock = productModal.querySelector('#modalProductStock');
+            var modalBodyImage = productModal.querySelector('#modalProductImage');
+            var modalAddToCartButton = productModal.querySelector('#modalAddToCartButton');
 
-        modalTitle.textContent = 'Detalles del Producto: ' + name;
-        modalBodyName.textContent = name;
-        modalBodyDescription.textContent = description;
-        modalBodyPrice.textContent = price;
-        modalBodyWeight.textContent = weight;
-        modalBodyCategory.textContent = category;
-        modalBodyStock.textContent = stock;
-        modalBodyImage.src = image;
-    });
+            modalTitle.textContent = 'Detalles del Producto: ' + name;
+            modalBodyName.textContent = name;
+            modalBodyDescription.textContent = description;
+            modalBodyPrice.textContent = price;
+            modalBodyWeight.textContent = weight;
+            modalBodyCategory.textContent = category;
+            modalBodyStock.textContent = stock;
+            modalBodyImage.src = image;
 
-    productModal.addEventListener('hidden.bs.modal', function (event) {
-        var modalBodyImage = productModal.querySelector('#modalProductImage');
-        modalBodyImage.src = '';
-    });
-    
+            modalAddToCartButton.setAttribute('data-id', id);
+            modalAddToCartButton.setAttribute('data-name', name);
+            modalAddToCartButton.setAttribute('data-price', price);
+        });
 
-</script>
+        productModal.addEventListener('hidden.bs.modal', function (event) {
+            var modalBodyImage = productModal.querySelector('#modalProductImage');
+            modalBodyImage.src = '';
+        });
 
+        // Añadir el producto al carrito desde el modal
+        document.getElementById('modalAddToCartButton').addEventListener('click', function(event) {
+            addToCart(event);
+        });
+    </script>
 </body>
-
-
 
 </html>
