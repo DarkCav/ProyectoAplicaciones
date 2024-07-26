@@ -100,5 +100,5 @@ updateCartUI();
 
 // Redirigir a la página de detalle del carrito
 document.getElementById('view-cart-button').addEventListener('click', function() {
-    window.location.href = 'cart-detail.html';
+    window.location.href = 'view/CarritoDetalle.php';
 });
