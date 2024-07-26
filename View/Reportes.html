@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Admin Menu - Foody</title>
+    <title>Listado de Reportes - Foody</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -14,7 +14,7 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Lora:wght@600;700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Lora:wght@600;700&display=swap" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -92,8 +92,8 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="../index.html" class="nav-item nav-link" data-bs-toggle="tooltip" data-bs-original-title="Salir de la sesión de administrador">
-                        <i class="bi bi-door-closed me-2"></i>Cerrar Sesión
+                    <a href="../View/admin_menu.html" class="nav-item nav-link" data-bs-toggle="tooltip" data-bs-original-title="Volver">
+                        <i class="bi bi-arrow-left me-2"></i>Volver
                     </a>
                 </div>
             </div>
@@ -105,27 +105,24 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="section-header text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <h1 class="display-5 mb-3">Menú Administrador</h1>
-                <p>Bienvenido, admin. Gestiona productos y clientes con facilidad.</p>
+                <h1 class="display-5 mb-3">Listado de Reportes</h1>
+                <p>Bienvenido, admin. Descarga tus reportes.</p>
             </div>
             <div class="row g-4">
                 <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <a href="../View/admin_tipoproducto.html" class="btn btn-primary w-100 py-4 fs-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Gestionar Tipos de carne">Tipos de Carne</a>
+                    <a href="../view/admin_usuarios.html" class="btn btn-primary w-100 py-4 fs-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Gestionar Usuarios">Usuarios</a>
                 </div>
                 <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <a href="../view/admin_subir.html" class="btn btn-primary w-100 py-4 fs-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Subir nuevos productos a la tienda">Subir Producto</a>
+                    <a href="../view/admin_productos.html" class="btn btn-primary w-100 py-4 fs-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Gestionar Productos">Productos</a>
                 </div>
                 <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <a href= "../view/admin_modificar.php" class="btn btn-primary w-100 py-4 fs-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Registrar nuevos clientes en el sistema">Modificiar Producto</a>
+                    <a href="../Model/ReporteCliente.php" class="btn btn-primary w-100 py-4 fs-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Gestionar Clientes">Clientes</a>
                 </div>
                 <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <a href="../view/admin_eliminar.php" class="btn btn-primary w-100 py-4 fs-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar productos existentes de la tienda">Eliminar Producto</a>
+                    <a href="../view/diagrama_circular.html" class="btn btn-primary w-100 py-4 fs-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver Diagrama Circular">Diagrama Circular</a>
                 </div>
-                <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                    <a href="../view/admin_eliminar_cli.php" class="btn btn-primary w-100 py-4 fs-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar clientes del sistema">Eliminar Cliente</a>
-                </div>
-                <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                    <a href="../view/Reportes.html" class="btn btn-primary w-100 py-4 fs-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Listado De Reportes">Listado de reportes</a>
+                <div class="col-12 wow fadeInUp" data-wow-delay="0.7s">
+                    <a href="../view/diagrama_barras.html" class="btn btn-primary w-100 py-4 fs-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver Diagrama de Barras">Diagrama de Barras</a>
                 </div>
             </div>
         </div>
