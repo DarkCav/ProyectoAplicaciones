@@ -20,13 +20,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Validar que el archivo es una imagen y que es un PNG
+    $check = getimagesize($_FILES["imagen"]["tmp_name"]);
+    if ($check === false) {
+        echo "El archivo no es una imagen.";
+        exit;
+    }
+
     if ($imageFileType != "png") {
         echo "Error: solo se permiten archivos PNG.";
         exit;
     }
 
     if (move_uploaded_file($_FILES["imagen"]["tmp_name"], $target_file)) {
-        $imagen_url = $target_file;
+        // Obtener la URL relativa de la imagen
+        $imagen_url = "uploads/" . basename($_FILES["imagen"]["name"]);
 
         // Insertar el producto en la base de datos
         $sql = "INSERT INTO producto (nombre, descripcion, precio, stock, id_tipo_producto, imagen_url, peso)

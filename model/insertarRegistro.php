@@ -11,8 +11,9 @@ $correo = $_POST['correo'];
 $contrasena = $_POST['contrasena'];
 $direccion = $_POST['direccion'];
 $telefono = $_POST['telefono'];
-$tipo_usuario = $_POST['tipo'];
+//$tipo_usuario = $_POST['tipo'];
 $confirmarC = $_POST['confirmar'];
+$tipo_usuario = "Normal";
 
 if($contrasena == $confirmarC){
     // Las contraseñas coinciden, proceder con el registro
@@ -41,12 +42,12 @@ if($contrasena == $confirmarC){
         // Si todo está bien, confirmar la transacción
         mysqli_commit($conn);
 
-        $redirect_page = ($tipo_usuario === "Administrador") ? "../view/admin_menu.html" : "../indexU.php";
+        //$redirect_page = ($tipo_usuario === "Administrador") ? "../view/admin_menu.html" : "../indexU.php";
 
         echo '
             <script>
-                alert("Usuario registrado exitosamente como ' . $tipo_usuario . '");
-                window.location = "' . $redirect_page . '";
+                alert("Usuario registrado exitosamente por favor inicie sesión");
+                window.location = "../view/registro_login.php";
             </script>
         ';
     } catch (Exception $e) {

@@ -25,12 +25,6 @@ $user_data = mysqli_fetch_assoc($result);
     <link rel="stylesheet" href="../css//micuenta.css">
 </head>
 <body>
-    <!--<h1>Mi Cuenta</h1>
-    <p>Nombre: <?php echo htmlspecialchars($user_data['nombre']); ?></p>
-    <p>Dirección: <?php echo htmlspecialchars($user_data['direccion']); ?></p>
-    <p>Teléfono: <?php echo htmlspecialchars($user_data['telefono']); ?></p>
-    <p>Correo electrónico: <?php echo htmlspecialchars($user_data['correo_electronico']); ?></p>
-    <a href="../indexU.php">Volver al inicio</a>-->
     <div class="container">
         <h1>Mi Cuenta</h1>
         <p><strong>Nombre:</strong> <?php echo htmlspecialchars($user_data['nombre']); ?></p>

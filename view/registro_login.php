@@ -82,18 +82,18 @@
                 <!--Register-->
                 <form action="../model/insertarRegistro.php" method="POST" class="formulario__register" id="registerForm">
                     <h2>Regístrarse</h2>
-                    <input type="text" placeholder="Nombre completo" name="nombre_completo" required  pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+">
+                    <input type="text" placeholder="Nombre y Apellido" name="nombre_completo" required  pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+">
                     <input type="email" placeholder="Correo Electronico" name="correo" required>
                     <input type="text" placeholder="Dirección" name="direccion" required >
                     <input type="text" placeholder="Teléfono" name="telefono" required  pattern="\d{10}">
                     <input type="password" placeholder="Contraseña" name="contrasena" id="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$" required
                     title="La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, letras minúscula y al menos un número." >
                     <input type="password" placeholder="Confirmar contraseña" name="confirmar" id=" confirm_password">
-                    <select name="tipo" required>
+                    <!--<select name="tipo" required>
                         <option value="">Seleccione el tipo de usuario</option>
-                        <option value="Normal">Normal</option>
+                        <option value="Normal">Cliente</option>
                         <option value="Administrador">Administrador</option>
-                    </select>
+                    </select>-->
                     <button type="submit">Regístrarse</button>
                 </form>
             </div>
