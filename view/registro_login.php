@@ -89,11 +89,11 @@
                     <input type="password" placeholder="Contraseña" name="contrasena" id="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$" required
                     title="La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, letras minúscula y al menos un número." >
                     <input type="password" placeholder="Confirmar contraseña" name="confirmar" id=" confirm_password">
-                    <select name="tipo" required>
+                    <!--<select name="tipo" required>
                         <option value="">Seleccione el tipo de usuario</option>
                         <option value="Normal">Cliente</option>
                         <option value="Administrador">Administrador</option>
-                    </select>
+                    </select>-->
                     <button type="submit">Regístrarse</button>
                 </form>
             </div>
