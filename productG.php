@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user_name'])) { //VALIDAR SESSION
+if (!isset($_SESSION['user_name'])) {
     $_SESSION['msg'] = "NO SESSION";
-    echo "<script>console.log('Debug Objects: " . $_SESSION['msg']  . "' );</script>";
+    echo "<script>console.log('Debug Objects: " . $_SESSION['msg'] . "' );</script>";
     header('location: Controller/Controlador.php?opcion=1');
     exit();
 }
 
-if (isset($_GET['logout'])) { //CERRAR SESSION
+if (isset($_GET['logout'])) {
     echo "<script>console.log('Destroy session');</script>";
     session_destroy();
     unset($_SESSION['user_name']);
@@ -19,34 +19,13 @@ if (isset($_GET['logout'])) { //CERRAR SESSION
 echo "<script>console.log('USER LOGGING: " . $_SESSION['user_name'] . "' );</script>";
 
 include("config/conexion.php"); // Asegúrate de que la ruta sea correcta
-
-class Controlador {
-    private $conn;
-
-    public function __construct($conn) {
-        $this->conn = $conn;
-    }
-
-    public function obtenerProductos() {
-        $sql = "SELECT * FROM producto";
-        $result = mysqli_query($this->conn, $sql);
-
-        if (!$result) {
-            die("Error en la consulta: " . mysqli_error($this->conn));
-        }
-
-        $productos = array();
-        if (mysqli_num_rows($result) > 0) {
-            while($row = mysqli_fetch_assoc($result)) {
-                $productos[] = $row;
-            }
-        }
-        return $productos;
-    }
-}
+include("config/producto.php");
 
 $controlador = new Controlador($conn);
-$productos = $controlador->obtenerProductos();
+
+$tipoProductoId = isset($_GET['tipo']) ? intval($_GET['tipo']) : 8; // Por defecto mostrar Cerdo (id 8)
+$productos = $controlador->obtenerProductosPorTipo($tipoProductoId);
+$categoriaNombre = $controlador->obtenerNombreCategoria($tipoProductoId);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -178,16 +157,16 @@ $productos = $controlador->obtenerProductos();
                 <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
                     <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
                         <li class="nav-item me-2">
-                            <a class="btn btn-outline-primary border-2 active" data-bs-toggle="pill" href="#tab-1">Cerdo</a>
+                            <a class="btn btn-outline-primary border-2 <?php echo $tipoProductoId == 8 ? 'active' : ''; ?>" href="productG.php?tipo=8">Cerdo</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="btn btn-outline-primary border-2" data-bs-toggle="pill" href="#tab-2">Res</a>
+                            <a class="btn btn-outline-primary border-2 <?php echo $tipoProductoId == 11 ? 'active' : ''; ?>" href="productG.php?tipo=11">Res</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="btn btn-outline-primary border-2" data-bs-toggle="pill" href="#tab-3">Pollo</a>
+                            <a class="btn btn-outline-primary border-2 <?php echo $tipoProductoId == 12 ? 'active' : ''; ?>" href="productG.php?tipo=12">Pollo</a>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="btn btn-outline-primary border-2" data-bs-toggle="pill" href="#tab-4">Embutidos</a>
+                            <a class="btn btn-outline-primary border-2 <?php echo $tipoProductoId == 9 ? 'active' : ''; ?>" href="productG.php?tipo=9">Embutidos</a>
                         </li>
                     </ul>
                 </div>
@@ -196,38 +175,51 @@ $productos = $controlador->obtenerProductos();
                 <div id="tab-1" class="tab-pane fade show p-0 active">
                     <div class="row g-4">
                         <?php
-                        foreach ($productos as $producto) {
-                            $imagen = isset($producto['imagen_url']) ? $producto['imagen_url'] : 'uploads/default.jpg'; // Imagen por defecto si no existe
-                            $precio = isset($producto['precio']) ? $producto['precio'] : ''; // Precio vacío si no existe
-                            $id = isset($producto['id_producto']) ? $producto['id_producto'] : ''; // ID vacío si no existe
-                            $nombre = isset($producto['nombre']) ? $producto['nombre'] : ''; // Nombre vacío si no existe
+                        if (empty($productos)) {
+                            echo '<p>No hay productos disponibles en esta categoría.</p>';
+                        } else {
+                            foreach ($productos as $producto) {
+                                $imagen = isset($producto['imagen_url']) ? $producto['imagen_url'] : 'uploads/default.jpg';
+                                $precio = isset($producto['precio']) ? $producto['precio'] : '';
+                                $id = isset($producto['id_producto']) ? $producto['id_producto'] : '';
+                                $nombre = isset($producto['nombre']) ? $producto['nombre'] : '';
+                                $descripcion = isset($producto['descripcion']) ? $producto['descripcion'] : '';
+                                $peso = isset($producto['peso']) ? $producto['peso'] : '';
+                                $stock = isset($producto['stock']) ? $producto['stock'] : '';
 
-                            echo '
-                            <div class="col-xl-3 col-lg-4 col-md-6">
-                                <div class="product-item">
-                                    <div class="position-relative bg-light overflow-hidden">
-                                        <img class="img-fluid w-100" src="'.$imagen.'" alt="'.$nombre.'">
-                                        <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
+                                echo '
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <div class="product-item">
+                                        <div class="position-relative bg-light overflow-hidden">
+                                            <img class="img-fluid w-100" src="'.$imagen.'" alt="'.$nombre.'">
+                                            <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div>
+                                        </div>
+                                        <div class="text-center p-4">
+                                            <a class="d-block h5 mb-2" href="#">'.$nombre.'</a>
+                                            <span class="text-primary me-1">$'.$precio.'</span>
+                                        </div>
+                                        <div class="d-flex border-top">
+                                            <small class="w-50 text-center border-end py-2">
+                                                <a class="text-body" href="#" data-bs-toggle="modal" data-bs-target="#productModal"
+                                                   data-name="'.$nombre.'"
+                                                   data-description="'.$descripcion.'"
+                                                   data-price="'.$precio.'"
+                                                   data-weight="'.$peso.'"
+                                                   data-category="'.$categoriaNombre.'"
+                                                   data-stock="'.$stock.'"
+                                                   data-image="'.$imagen.'"><i class="fa fa-eye text-primary me-2"></i>Ver detalles</a>
+                                            </small>
+                                            <small class="w-50 text-center py-2">
+                                                <a class="text-body add-to-cart" data-id="'.$id.'" data-name="'.$nombre.'" data-price="'.$precio.'" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
+                                            </small>
+                                        </div>
                                     </div>
-                                    <div class="text-center p-4">
-                                        <a class="d-block h5 mb-2" href="#">'.$nombre.'</a>
-                                        <span class="text-primary me-1">$'.$precio.'</span>
-                                    </div>
-                                    <div class="d-flex border-top">
-                                        <small class="w-50 text-center border-end py-2">
-                                            <a class="text-body" href="#"><i class="fa fa-eye text-primary me-2"></i>Ver detalles</a>
-                                        </small>
-                                        <small class="w-50 text-center py-2">
-                                            <a class="text-body add-to-cart" data-id="'.$id.'" data-name="'.$nombre.'" data-price="'.$precio.'" href="#"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito</a>
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>';
+                                </div>';
+                            }
                         }
                         ?>
                     </div>
                 </div>
-                <!-- Repite los bloques de productos para las otras pestañas (Res, Pollo, Embutidos) si es necesario -->
             </div>
         </div>
     </div>
@@ -308,7 +300,6 @@ $productos = $controlador->obtenerProductos();
     </div>
     <!-- Testimonial End -->
 
-
     <!-- Footer Start -->
     <div class="container-fluid bg-dark footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
@@ -377,6 +368,76 @@ $productos = $controlador->obtenerProductos();
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script src="js/carrito.js"></script> 
+
+    <!-- Modal para ver detalles del producto -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel">Detalles del Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img id="modalProductImage" class="img-fluid" src="" alt="Producto">
+                    </div>
+                    <div class="col-md-6">
+                        <h5 id="modalProductName"></h5>
+                        <p id="modalProductDescription"></p>
+                        <p><strong>Precio: </strong>$<span id="modalProductPrice"></span></p>
+                        <p><strong>Peso: </strong><span id="modalProductWeight"></span> kg</p>
+                        <p><strong>Categoría: </strong><span id="modalProductCategory"></span></p>
+                        <p><strong>Stock: </strong><span id="modalProductStock"></span></p>
+                        <button type="button" class="btn btn-primary">Añadir al carrito</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var productModal = document.getElementById('productModal');
+    productModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var name = button.getAttribute('data-name');
+        var description = button.getAttribute('data-description');
+        var price = button.getAttribute('data-price');
+        var weight = button.getAttribute('data-weight');
+        var category = button.getAttribute('data-category');
+        var stock = button.getAttribute('data-stock');
+        var image = button.getAttribute('data-image');
+
+        var modalTitle = productModal.querySelector('.modal-title');
+        var modalBodyName = productModal.querySelector('#modalProductName');
+        var modalBodyDescription = productModal.querySelector('#modalProductDescription');
+        var modalBodyPrice = productModal.querySelector('#modalProductPrice');
+        var modalBodyWeight = productModal.querySelector('#modalProductWeight');
+        var modalBodyCategory = productModal.querySelector('#modalProductCategory');
+        var modalBodyStock = productModal.querySelector('#modalProductStock');
+        var modalBodyImage = productModal.querySelector('#modalProductImage');
+
+        modalTitle.textContent = 'Detalles del Producto: ' + name;
+        modalBodyName.textContent = name;
+        modalBodyDescription.textContent = description;
+        modalBodyPrice.textContent = price;
+        modalBodyWeight.textContent = weight;
+        modalBodyCategory.textContent = category;
+        modalBodyStock.textContent = stock;
+        modalBodyImage.src = image;
+    });
+
+    productModal.addEventListener('hidden.bs.modal', function (event) {
+        var modalBodyImage = productModal.querySelector('#modalProductImage');
+        modalBodyImage.src = '';
+    });
+    
+
+</script>
+
 </body>
+
+
 
 </html>

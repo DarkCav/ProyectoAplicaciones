@@ -1,6 +1,5 @@
 <?php
-
-include("../config/conexion.php");
+include("conexion.php");
 
 class Controlador {
     private $conn;
@@ -42,10 +41,23 @@ class Controlador {
         }
         return $productos;
     }
+
+    public function obtenerNombreCategoria($idTipoProducto) {
+        $sql = "SELECT nombre FROM tipo_producto WHERE id_tipo_producto = $idTipoProducto";
+        $result = mysqli_query($this->conn, $sql);
+
+        if (!$result) {
+            die("Error en la consulta: " . mysqli_error($this->conn));
+        }
+
+        $categoria = mysqli_fetch_assoc($result);
+        return $categoria ? $categoria['nombre'] : '';
+    }
 }
 
 $controlador = new Controlador($conn);
 
 $tipoProductoId = isset($_GET['tipo']) ? intval($_GET['tipo']) : 8; // Por defecto mostrar Cerdo (id 8)
 $productos = $controlador->obtenerProductosPorTipo($tipoProductoId);
+$categoriaNombre = $controlador->obtenerNombreCategoria($tipoProductoId);
 ?>
